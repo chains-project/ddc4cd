@@ -1,8 +1,17 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+name: DDC
+run-name: ${{ github.actor }} is testing out DDC 🚀
 on: workflow_dispatch
 jobs:
-    DDC:
-        runs-on: ubuntu-latest
-        steps:
-            - run: echo "Starting DDC"
+  DDC:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up GCC
+        uses: egor-tensin/setup-gcc@v1
+        with:
+          version: latest
+          platform: x64
+      - uses: actions/checkout@v4
+      - name: Test GCC
+        run: gcc ./hello.c -o hello
+      - name: Run hello
+        run: ./hello
