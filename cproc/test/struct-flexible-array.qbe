@@ -1,0 +1,16 @@
+export data $x = align 4 { w 4, }
+export
+function w $f(l %.1) {
+@start.1
+	%.2 =l alloc8 8
+	storel %.1, %.2
+@body.2
+	%.3 =l loadl %.2
+	%.4 =l add %.3, 4
+	%.5 =l extsw 2
+	%.6 =l mul %.5, 2
+	%.7 =l add %.4, %.6
+	%.8 =w loadsh %.7
+	%.9 =w extsh %.8
+	ret %.9
+}

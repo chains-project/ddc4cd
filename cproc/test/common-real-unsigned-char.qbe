@@ -1,0 +1,10 @@
+export
+function w $main() {
+@start.1
+@body.2
+	%.1 =w extub 1
+	%.2 =w extub 2
+	%.3 =w sub %.1, %.2
+	%.4 =w csgtw %.3, 0
+	ret %.4
+}

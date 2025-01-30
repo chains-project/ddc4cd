@@ -1,0 +1,8 @@
+data $.Lstring.2 = align 1 { b "hello\000", }
+export
+function w $main() {
+@start.1
+@body.2
+	%.1 =w call $puts(l $.Lstring.2)
+	ret 0
+}

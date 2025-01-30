@@ -1,0 +1,48 @@
+#!/bin/sh
+
+: ${CCQBE:=./cproc-qbe}
+
+if [ $# = 0 ] ; then
+	set -- test/*.c
+fi
+
+numtest=0
+numpass=0
+numfail=0
+fail=
+got=$(mktemp)
+trap 'rm "$got"' EXIT
+
+for test ; do
+	name=${test%.c}
+	case $name in
+	*+*) arch=${name##*+} ;;
+	*) arch=x86_64-sysv ;;
+	esac
+	if [ -f "$name.qbe" ] ; then
+		want=$name.qbe
+		set -- $CCQBE -t $arch -o "$got" "$test"
+	elif [ -f "$name.pp" ] ; then
+		want=$name.pp
+		set -- $CCQBE -t $arch -E -o "$got" "$test"
+	else
+		echo "invalid test '$test'" >&2
+		set -- false
+	fi
+	numtest=$((numtest + 1))
+	if "$@" && diff -Nu "$want" "$got" ; then
+		result="PASS"
+		numpass=$((numpass + 1))
+	else
+		result="FAIL"
+		numfail=$((numfail + 1))
+		fail="$fail $test"
+	fi
+	echo "[$result] $test" >&2
+done
+
+printf "\n%d/%d tests passed\n" "$numpass" "$numtest"
+if [ "$numfail" -gt 0 ] ; then
+	printf "%d test(s) failed (%s)\n" "$numfail" "${fail# }"
+	exit 1
+fi
