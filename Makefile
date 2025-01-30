@@ -19,7 +19,8 @@ deps:
 	sudo cp ./cproc/cproc /usr/local/bin/cproc
 	sudo cp ./cproc/cproc-qbe /usr/local/bin/cproc-qbe
 	rm ./cproc/config.mk
-	cp regenerate.mk ./cproc/config.mk
+# 	cp regenerate.mk ./cproc/config.mk
+	./cproc/configure CC=cproc
 	$(MAKE) -C ./cproc clean
 	$(MAKE) -C ./cproc
 	sudo cp ./cproc/cproc /usr/local/bin/cproc
