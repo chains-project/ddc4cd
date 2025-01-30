@@ -8,5 +8,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Test GCC
         run: gcc ./hello.c -o hello
+      - name: Test standard compiler
+        run: which cc
       - name: Run hello
         run: ./hello
