@@ -6,12 +6,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Test GCC
-        run: gcc ./hello.c -o hello
       - name: Test standard compiler
         run: |
             which cc 
             ls -la /usr/bin/cc
             ls -la /etc/alternatives/cc
-      - name: Run hello
-        run: ./hello
+      - name: Setup env
+        run: make deps
+      - name: Clean up
+        run: make clean
+      - name: Perform DDC
+        run: make
