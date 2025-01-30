@@ -11,6 +11,7 @@ jobs:
             which cc 
             ls -la /usr/bin/cc
             ls -la /etc/alternatives/cc
+            gcc --print-file-name=crtbegin.o
       - name: Setup env
         run: make deps
       - name: Clean up
