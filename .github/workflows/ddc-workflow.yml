@@ -18,3 +18,7 @@ jobs:
         run: make clean
       - name: Perform DDC
         run: make
+      - name: Self-regeneration comparison
+        run: cmp /usr/local/bin/cproc ./stage0/cproc
+      - name: DDC comparison
+        run: cmp ./stage0/cproc ./stage2/cproc
