@@ -9,6 +9,8 @@ jobs:
       - name: Test GCC
         run: gcc ./hello.c -o hello
       - name: Test standard compiler
-        run: which cc
+        run: |
+            which cc 
+            ls -la /usr/bin/cc
       - name: Run hello
         run: ./hello
