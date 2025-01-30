@@ -1,4 +1,4 @@
-static const char target[]               = "x86_64-linux-gnu";
+static const char target[]               = "x86_64-unknown-linux-gnu";
 static const char *const startfiles[]    = {"-l", ":crt1.o", "-l", ":crti.o", "-l", ":crtbegin.o"};
 static const char *const endfiles[]      = {"-l", "c", "-l", ":crtend.o", "-l", ":crtn.o"};
 static const char *const preprocesscmd[] = {
@@ -21,4 +21,4 @@ static const char *const preprocesscmd[] = {
 };
 static const char *const codegencmd[]    = {"qbe"};
 static const char *const assemblecmd[]   = {"as"};
-static const char *const linkcmd[]       = {"ld", "-L", "/usr/lib/gcc/x86_64-linux-gnu/11", "--dynamic-linker", "/lib64/ld-linux-x86-64.so.2"};
+static const char *const linkcmd[]       = {"ld", "-L", "/usr/lib/gcc/x86_64-linux-gnu/13", "--dynamic-linker", "/lib64/ld-linux-x86-64.so.2"};
