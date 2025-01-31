@@ -1,5 +1,5 @@
-name: DDC
-run-name: ${{ github.actor }} is testing out DDC 🚀
+name: DDC multi-env
+run-name: ${{ github.actor }} is testing out DDC in multiple environments 🚀
 on: workflow_dispatch
 jobs:
   DDC:
