@@ -21,4 +21,4 @@ static const char *const preprocesscmd[] = {
 };
 static const char *const codegencmd[]    = {"qbe"};
 static const char *const assemblecmd[]   = {"as"};
-static const char *const linkcmd[]       = {"ld", "-L", "/usr/lib/gcc/x86_64-linux-gnu/11", "--dynamic-linker", "/lib64/ld-linux-x86-64.so.2"};
+static const char *const linkcmd[]       = {"ld", "-L", "/usr/lib/gcc/x86_64-linux-gnu/9", "--dynamic-linker", "/lib64/ld-linux-x86-64.so.2"};
