@@ -15,6 +15,8 @@ jobs:
             ls -la /usr/bin/cc
             ls -la /etc/alternatives/cc
             gcc --print-file-name=crtbegin.o
+      - name: Setup config
+        run: cp ./config/${{matrix.os}}.h ./cproc/config.h
       - name: Setup env
         run: make deps
       - name: Clean up
