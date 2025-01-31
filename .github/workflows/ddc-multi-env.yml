@@ -3,7 +3,10 @@ run-name: ${{ github.actor }} is testing out DDC 🚀
 on: workflow_dispatch
 jobs:
   DDC:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, ubuntu-22.04]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
       - name: Debug output
