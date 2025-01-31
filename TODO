@@ -1,0 +1,2 @@
+* Each job should output hash of result into final job that can compare
+* Dynamicallly generate configs instead of hard coding
