@@ -14,6 +14,7 @@ jobs:
             gcc --print-file-name=crtbegin.o
       - name: Configure tcc
         run: |
+            ls ./tinycc-f6385c0
             cd ./tinycc-f6385c0
             ./configure --extra-ldflags=-s
             make clean
