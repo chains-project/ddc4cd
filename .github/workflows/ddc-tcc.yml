@@ -23,6 +23,7 @@ jobs:
             ./configure --extra-ldflags=-s
             make clean
             make
+            objcopy -D libtcc.a
             sudo make install
       - name: Perform self-regeneration
         run: |
@@ -30,5 +31,6 @@ jobs:
             ./configure --cc=tcc --extra-ldflags=-s
             make clean
             make
+            objcopy -D libtcc.a
       - name: Rerport hash
         run: sha256sum ./tinycc-f6385c0/tcc
