@@ -3,7 +3,10 @@ run-name: ${{ github.actor }} is testing out DDC for tcc 🚀
 on: workflow_dispatch
 jobs:
   DDC:
-    runs-on: ubuntu-latest
+    strategy:
+        matrix:
+          os: [ubuntu-latest, ubuntu-22.04, ubuntu-20.04]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
       - name: Debug output
@@ -14,10 +17,17 @@ jobs:
             gcc --print-file-name=crtbegin.o
       - name: Unpack tcc
         run: tar xvf tinycc-f6385c0.tar.gz
-      - name: Configure tcc
+      - name: Configure and install
         run: |
             cd ./tinycc-f6385c0
             ./configure --extra-ldflags=-s
+            make clean
+            make
+            sudo make install
+      - name: Perform self-regeneration
+        run: |
+            cd ./tinycc-f6385c0
+            ./configure --cc=tcc --extra-ldflags=-s
             make clean
             make
       - name: Rerport hash
