@@ -7,6 +7,8 @@ jobs:
       matrix:
         os: [ubuntu-latest, ubuntu-22.04, ubuntu-20.04]
     runs-on: ${{ matrix.os }}
+    outputs:
+        result_hash: ${{ steps.fin.outputs.sha256sum_stage2 }}
     steps:
       - uses: actions/checkout@v4
       - name: Debug output
@@ -29,3 +31,6 @@ jobs:
         run: cmp /usr/local/bin/cproc ./stage0/cproc
       - name: DDC comparison
         run: cmp ./stage0/cproc ./stage2/cproc
+      - id: fin
+        name: Export DDC result
+        run: sha256sum ./stage2/cproc | cut -d ' ' -f1 | awk '{print "sha256sum_stage2="$1}' >> "$GITHUB_OUTPUT"
