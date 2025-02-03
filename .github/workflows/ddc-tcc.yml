@@ -1,0 +1,21 @@
+name: DDC for tcc
+run-name: ${{ github.actor }} is testing out DDC for tcc 🚀
+on: workflow_dispatch
+jobs:
+  DDC:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Debug output
+        run: |
+            which cc 
+            ls -la /usr/bin/cc
+            ls -la /etc/alternatives/cc
+            gcc --print-file-name=crtbegin.o
+      - name: Configure tcc
+        run: |
+            cd ./tinycc-f6385c0
+            ./configure --extra-ldflags=-s
+            make
+      - name: Rerport hash
+        run: sha256sum ./tinycc-f6385c0/tcc
