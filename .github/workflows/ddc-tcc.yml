@@ -20,7 +20,7 @@ jobs:
       - name: Configure and install
         run: |
             cd ./tinycc-f6385c0
-            ./configure --extra-ldflags=-s
+            ./configure --cc=gcc --extra-ldflags=-s
             make clean
             make
             objcopy -D libtcc.a
@@ -33,4 +33,4 @@ jobs:
             make
             objcopy -D libtcc.a
       - name: Rerport hash
-        run: sha256sum ./tinycc-f6385c0/tcc
+        run: sha256sum ./tinycc-f6385c0/tcc ./tinycc-f6385c0/libtcc.a
