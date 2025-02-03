@@ -16,6 +16,7 @@ jobs:
         run: |
             cd ./tinycc-f6385c0
             ./configure --extra-ldflags=-s
+            make clean
             make
       - name: Rerport hash
         run: sha256sum ./tinycc-f6385c0/tcc
