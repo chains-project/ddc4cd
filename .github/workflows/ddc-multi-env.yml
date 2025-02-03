@@ -34,3 +34,10 @@ jobs:
       - id: fin
         name: Export DDC result
         run: sha256sum ./stage2/cproc | cut -d ' ' -f1 | awk '{print "sha256sum_stage2="$1}' >> "$GITHUB_OUTPUT"
+  Results:
+    runs-on: ubuntu-latest
+    needs: DDC
+    steps:
+      - env:
+            SHA256SUM_STAGE2: ${{needs.DDC.outputs.sha256sum_stage2}}
+        run: echo "$SHA256SUM_STAGE2"
