@@ -39,5 +39,5 @@ jobs:
     needs: DDC
     steps:
       - env:
-            SHA256SUM_STAGE2: ${{needs.DDC.outputs.sha256sum_stage2}}
+            SHA256SUM_STAGE2: ${{needs.DDC.outputs.result_hash}}
         run: echo "$SHA256SUM_STAGE2"
