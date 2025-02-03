@@ -12,9 +12,10 @@ jobs:
             ls -la /usr/bin/cc
             ls -la /etc/alternatives/cc
             gcc --print-file-name=crtbegin.o
+      - name: Unpack tcc
+        run: tar xvf tinycc-f6385c0.tar.gz
       - name: Configure tcc
         run: |
-            ls ./tinycc-f6385c0
             cd ./tinycc-f6385c0
             ./configure --extra-ldflags=-s
             make clean
