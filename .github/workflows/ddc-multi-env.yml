@@ -15,10 +15,12 @@ jobs:
             ls -la /usr/bin/cc
             ls -la /etc/alternatives/cc
             gcc --print-file-name=crtbegin.o
-      - name: Setup config
-        run: cp ./.github/workflows/config/${{matrix.os}}.h ./cproc/config.h
       - name: Setup env
         run: make deps
+      - name: Setup config
+        run: |
+            ./cproc/configure LDFLAGS=-s --host=x86_64-linux-gnu --target=x86_64-linux-gnu
+            mv ./config.h ./cproc/config.h
       - name: Clean up
         run: make clean
       - name: Perform DDC
