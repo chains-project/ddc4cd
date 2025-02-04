@@ -45,12 +45,16 @@ fi
 echo "Building TCC!"
 tar xvf ${TCCARCHIVE} 1> /dev/null
 cd tinycc-f6385c0
+# Compile tcc with gcc into a temporary directory used only to compile again
 ./configure --cc=gcc --extra-ldflags=-s --prefix=${INSTALLDIR}
 make clean
 make
 make install
 make clean
+# Compile tcc with tcc and install in default bin dir
 TMP_CC="${INSTALLDIR}/bin/tcc"
 ./configure --cc=${TMP_CC} --extra-ldflags=-s
 make
 sudo make install
+# Cleanup
+rm -rf $INSTALLDIR
