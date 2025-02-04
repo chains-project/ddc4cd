@@ -7,7 +7,7 @@ COMPROMISE=false
 INSTALLDIR=""
 TCCARCHIVE="tinycc-f6385c0.tar.gz"
 
-OPTSTRING="t:c"
+OPTSTRING="a:ct"
 
 while getopts ${OPTSTRING} opt; do
   case ${opt} in
