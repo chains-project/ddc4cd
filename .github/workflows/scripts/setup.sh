@@ -51,7 +51,6 @@ make
 make install
 make clean
 TMP_CC="${INSTALLDIR}/bin/tcc"
-# --libdir="${INSTALLDIR}/usr/local/lib" --includedir="${INSTALLDIR}/usr/local/include"
 ./configure --cc=${TMP_CC} --extra-ldflags=-s
 make
 sudo make install
