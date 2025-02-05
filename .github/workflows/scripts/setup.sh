@@ -1,28 +1,30 @@
+#!/bin/bash -e
+
 # This script compiles and installs the untrusted compiler (invoked from root dir)
 # First compiles tcc using gcc and then again using the result of first compilation, to facilitate self-regen test in DDC
 # TODO: add option to compromise compiler
-#!/bin/bash
+
 # globals
-BIN_PREFIX="/usr/local"
-BINDIR="${BIN_PREFIX}/bin"
+bin_prefix="/usr/local"
+bin_dir="${bin_prefix}/bin"
 
 # default config
-COMPROMISE=false
-INSTALLDIR="/tmp/tmp-tcc"
-TCCARCHIVE="tinycc-f6385c0.tar.gz"
+compromise=false
+build_dir="../build"
+tcc_archive="tinycc-f6385c0.tar.gz"
 
 OPTSTRING="a:ct"
 
 while getopts ${OPTSTRING} opt; do
   case ${opt} in
     a)
-      TCCARCHIVE=${OPTARG}
+      tcc_archive=${OPTARG}
       ;;
     c)
-      COMPROMISE=true
+      compromise=true
       ;;
     t)
-      INSTALLDIR=${OPTARG}
+      install_dir=${OPTARG}
       ;;
     ?)
       echo "Invalid option: -${OPTARG}."
@@ -33,28 +35,31 @@ done
 
 cat << EOF
 Configured...
-COMPROMISE=${COMPROMISE}
-INSTALLDIR=${INSTALLDIR}(not supported atm)
-TCCARCHIVE=${TCCARCHIVE}
+compromise=${compromise}
+install_dir=${install_dir}(not supported atm)
+tcc_archive=${tcc_archive}
 EOF
 
-if [ "$COMPROMISE" = true ] ; then
+if [ "$compromise" = true ] ; then
   echo "Compromising tcc build... (NOT IMPLEMENTED JUST A PRANK)"
 fi
 
 echo "Building TCC!"
-tar xvf ${TCCARCHIVE} 1> /dev/null
+wget https://repo.or.cz/tinycc.git/snapshot/f6385c05308f715bdd2c06336801193a21d69b50.tar.gz -O ${tcc_archive}
+tar xvf ${tcc_archive} 1> /dev/null
 cd tinycc-f6385c0
 # Compile tcc with gcc into a temporary directory used only to compile again
-./configure --cc=gcc --extra-ldflags=-s --prefix=${INSTALLDIR}
+./configure --cc=gcc --prefix="${build_dir}/gcc-tcc" --extra-ldflags=-s
 make clean
 make
+objcopy -D libtcc.a
 make install
 make clean
 # Compile tcc with tcc and install in default bin dir
-TMP_CC="${INSTALLDIR}/bin/tcc"
-./configure --cc=${TMP_CC} --extra-ldflags=-s
+tmp_cc="${build_dir}/gcc-tcc/bin/tcc"
+./configure --cc=${tmp_cc} --prefix="${build_dir}/initial-tcc" --extra-ldflags=-s
 make
-sudo make install
+objcopy -D libtcc.a
+make install
 # Cleanup
-rm -rf $INSTALLDIR
+#rm -rf $install_dir
