@@ -15,22 +15,7 @@ jobs:
             ls -la /usr/bin/cc
             ls -la /etc/alternatives/cc
             gcc --print-file-name=crtbegin.o
-      - name: Unpack tcc
-        run: tar xvf tinycc-f6385c0.tar.gz
-      - name: Configure and install
-        run: |
-            cd ./tinycc-f6385c0
-            ./configure --cc=gcc --extra-ldflags=-s
-            make clean
-            make
-            objcopy -D libtcc.a
-            sudo make install
-      - name: Perform self-regeneration
-        run: |
-            cd ./tinycc-f6385c0
-            ./configure --cc=tcc --extra-ldflags=-s
-            make clean
-            make
-            objcopy -D libtcc.a
-      - name: Rerport hash
-        run: sha256sum ./tinycc-f6385c0/tcc ./tinycc-f6385c0/libtcc.a
+      - name: Setup tcc
+        run: ./.github/workflows/scripts/setup.sh
+      - name: Perform DDC
+        run: ./.github/workflows/scripts/ddc.sh
