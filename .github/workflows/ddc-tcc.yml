@@ -11,10 +11,10 @@ jobs:
       - uses: actions/checkout@v4
       - name: Debug output
         run: |
-            which cc 
-            ls -la /usr/bin/cc
-            ls -la /etc/alternatives/cc
+            gcc -v
             gcc --print-file-name=crtbegin.o
+            ar V
+            echo "kernel: $(uname -r)"
       - name: Setup tcc
         run: ./.github/workflows/scripts/setup.sh
       - name: Perform DDC
