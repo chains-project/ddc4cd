@@ -36,17 +36,30 @@ EOF
 cd tinycc-f6385c0
 prefix=$(pwd)/tcc-root
 make clean
-./configure --cc="${build_dir}/initial-tcc/bin/tcc" --prefix=${prefix} --extra-ldflags=-s
+./configure --cc="${build_dir}/gp-tcc/bin/tcc" --prefix=${prefix} --extra-ldflags=-s
 make
 objcopy -D libtcc.a
-make install DESTDIR=../build/stage0
-ln -sfT ../build/stage0/${prefix} ./tcc-root
+make install DESTDIR=../build/cp-tcc
+ln -sfT ../build/cp-tcc/${prefix} ./tcc-root
 make clean
-./configure --cc=../build/stage0${prefix}/bin/tcc --prefix=${prefix} --extra-ldflags=-s
+./configure --cc=../build/cp-tcc${prefix}/bin/tcc --prefix=${prefix} --extra-ldflags=-s
 make
 objcopy -D libtcc.a
-make install DESTDIR=../build/stage1
-rm ./tcc-root
-sha256sum ../build/stage0${prefix}/bin/tcc ../build/stage1${prefix}/bin/tcc "${build_dir}/initial-tcc/bin/tcc"
-sha256sum ../build/stage0${prefix}/lib/libtcc.a ../build/stage1${prefix}/lib/libtcc.a
-sha256sum ../build/stage0${prefix}/lib/tcc/libtcc1.a ../build/stage1${prefix}/lib/tcc/libtcc1.a
+make install DESTDIR=../build/ca-tcc
+# ddc process
+make clean
+./configure --cc=gcc --prefix=${prefix} --extra-ldflags=-s
+make
+objcopy -D libtcc.a
+make install DESTDIR=../build/stage1-tcc
+ln -sfT ../build/stage1-tcc/${prefix} ./tcc-root
+./configure --cc=../build/cp-tcc${prefix}/bin/tcc --prefix=${prefix} --extra-ldflags=-s
+make
+objcopy -D libtcc.a
+make install DESTDIR=../build/stage2-tcc
+echo "___________BINARIES___________"
+sha256sum ../build/cp-tcc${prefix}/bin/tcc ../build/ca-tcc${prefix}/bin/tcc ../build/stage2-tcc${prefix}/bin/tcc 
+echo "___________LIBTCC___________"
+sha256sum ../build/cp-tcc${prefix}/lib/libtcc.a ../build/ca-tcc${prefix}/lib/libtcc.a ../build/stage2-tcc${prefix}/lib/libtcc.a
+echo "___________LIBTCC1___________"
+sha256sum ../build/cp-tcc${prefix}/lib/tcc/libtcc1.a ../build/ca-tcc${prefix}/lib/tcc/libtcc1.a ../build/stage2-tcc${prefix}/lib/tcc/libtcc1.a
