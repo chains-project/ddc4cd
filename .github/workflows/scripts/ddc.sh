@@ -47,6 +47,6 @@ make
 objcopy -D libtcc.a
 make install DESTDIR=../build/stage1
 rm ./tcc-root
-sha256sum ../build/stage0${prefix}/bin/tcc ../build/stage1${prefix}/bin/tcc
+sha256sum ../build/stage0${prefix}/bin/tcc ../build/stage1${prefix}/bin/tcc "${build_dir}/initial-tcc/bin/tcc"
 sha256sum ../build/stage0${prefix}/lib/libtcc.a ../build/stage1${prefix}/lib/libtcc.a
 sha256sum ../build/stage0${prefix}/lib/tcc/libtcc1.a ../build/stage1${prefix}/lib/tcc/libtcc1.a
