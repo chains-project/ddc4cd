@@ -45,8 +45,8 @@ if [ "$compromise" = true ] ; then
 fi
 
 echo "Building TCC!"
-wget https://repo.or.cz/tinycc.git/snapshot/f6385c05308f715bdd2c06336801193a21d69b50.tar.gz -O ${tcc_archive}
-tar xvf ${tcc_archive} 1> /dev/null
+#wget https://repo.or.cz/tinycc.git/snapshot/f6385c05308f715bdd2c06336801193a21d69b50.tar.gz -O ${tcc_archive}
+tar xvf ./tcc_src/${tcc_archive} 1> /dev/null
 cd tinycc-f6385c0
 # Compile tcc with gcc into a temporary directory used only to compile again
 ./configure --cc=gcc --prefix="${build_dir}/gcc-tcc" --extra-ldflags=-s
@@ -57,7 +57,7 @@ make install
 make clean
 # Compile tcc with tcc and install in default bin dir
 tmp_cc="${build_dir}/gcc-tcc/bin/tcc"
-./configure --cc=${tmp_cc} --prefix="${build_dir}/initial-tcc" --extra-ldflags=-s
+./configure --cc=${tmp_cc} --prefix="${build_dir}/gp-tcc" --extra-ldflags=-s
 make
 objcopy -D libtcc.a
 make install

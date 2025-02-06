@@ -3,5 +3,4 @@ stage1/
 stage2/
 **/*.o
 tinycc-f6385c0/
-tinycc-f6385c0.tar.gz
 build/
