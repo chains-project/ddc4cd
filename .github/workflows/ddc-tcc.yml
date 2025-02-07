@@ -26,10 +26,10 @@ jobs:
       - name: Perform DDC
         run: ./.github/workflows/scripts/ddc.sh
       - name: Create tar
-        if: inputs.upload-results == 'true'
+        if: ${{ github.event.inputs.upload-results == 'true' }}
         run: tar -czf ./build-${{matrix.os}}.tar.gz ./build
       - name: Upload results
-        if: inputs.upload-results == 'true'
+        if: ${{ github.event.inputs.upload-results == 'true' }}
         uses: actions/upload-artifact@v4
         with:
           if-no-files-found: error
