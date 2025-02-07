@@ -1,6 +1,12 @@
 name: DDC for tcc
 run-name: ${{ github.actor }} is testing out DDC for tcc 🚀
-on: workflow_dispatch
+on: 
+  workflow_dispatch:
+    inputs:
+      upload-results:
+        type: boolean
+        description: Upload all ddc binary artifacts as an archive?
+
 jobs:
   DDC:
     strategy:
@@ -19,3 +25,13 @@ jobs:
         run: ./.github/workflows/scripts/setup.sh
       - name: Perform DDC
         run: ./.github/workflows/scripts/ddc.sh
+      - name: Create tar
+        if: inputs.upload-results == 'true'
+        run: tar -czf ./build-${{matrix.os}}.tar.gz ./build
+      - name: Upload results
+        if: inputs.upload-results == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          if-no-files-found: error
+          path: ./build-${{matrix.os}}.tar.gz
+          name: build-${{matrix.os}}.tar.gz
