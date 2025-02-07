@@ -1,7 +1,6 @@
 #!/bin/bash -e
 
 # This script performs DDC with an untrusted compiler and at least one trusted
-# Defaults to installed tcc as untrusted compiler
 
 # globals
 cwd=$(pwd)
@@ -12,11 +11,17 @@ untrusted_cc="tcc"
 untrusted_src_dir="tinycc-f6385c0"
 trusted_cc="gcc"
 
-OPTSTRING="c"
+OPTSTRING="cst"
 while getopts ${OPTSTRING} opt; do
   case ${opt} in
     c)
       untrusted_cc=${OPTARG}
+      ;;
+    s)
+      untrusted_src_dir=${OPTARG}
+      ;;
+    t)
+      trusted_cc=${OPTARG}
       ;;
     ?)
       echo "Invalid option: -${OPTARG}."
@@ -39,27 +44,27 @@ make clean
 ./configure --cc="${build_dir}/gp-tcc/bin/tcc" --prefix=${prefix} --extra-ldflags=-s
 make
 objcopy -D libtcc.a
-make install DESTDIR=../build/cp-tcc
-ln -sfT ../build/cp-tcc/${prefix} ./tcc-root
+make install DESTDIR=${build_dir}/cp-tcc
+ln -sfT ${build_dir}/cp-tcc${prefix} ./tcc-root
 make clean
-./configure --cc=../build/cp-tcc${prefix}/bin/tcc --prefix=${prefix} --extra-ldflags=-s
+./configure --cc=${build_dir}/cp-tcc${prefix}/bin/tcc --prefix=${prefix} --extra-ldflags=-s
 make
 objcopy -D libtcc.a
-make install DESTDIR=../build/ca-tcc
+make install DESTDIR=${build_dir}/ca-tcc
 # ddc process
 make clean
-./configure --cc=gcc --prefix=${prefix} --extra-ldflags=-s
+./configure --cc=${trusted_cc} --prefix=${prefix} --extra-ldflags=-s
 make
 objcopy -D libtcc.a
-make install DESTDIR=../build/stage1-tcc
-ln -sfT ../build/stage1-tcc/${prefix} ./tcc-root
-./configure --cc=../build/cp-tcc${prefix}/bin/tcc --prefix=${prefix} --extra-ldflags=-s
+make install DESTDIR=${build_dir}/stage1-tcc
+ln -sfT ${build_dir}/stage1-tcc${prefix} ./tcc-root
+./configure --cc=${build_dir}/cp-tcc${prefix}/bin/tcc --prefix=${prefix} --extra-ldflags=-s
 make
 objcopy -D libtcc.a
-make install DESTDIR=../build/stage2-tcc
+make install DESTDIR=${build_dir}/stage2-tcc
 echo "___________BINARIES___________"
-sha256sum ../build/cp-tcc${prefix}/bin/tcc ../build/ca-tcc${prefix}/bin/tcc ../build/stage2-tcc${prefix}/bin/tcc 
+sha256sum ${build_dir}/cp-tcc${prefix}/bin/tcc ${build_dir}/ca-tcc${prefix}/bin/tcc ${build_dir}/stage2-tcc${prefix}/bin/tcc 
 echo "___________LIBTCC___________"
-sha256sum ../build/cp-tcc${prefix}/lib/libtcc.a ../build/ca-tcc${prefix}/lib/libtcc.a ../build/stage2-tcc${prefix}/lib/libtcc.a
+sha256sum ${build_dir}/cp-tcc${prefix}/lib/libtcc.a ${build_dir}/ca-tcc${prefix}/lib/libtcc.a ${build_dir}/stage2-tcc${prefix}/lib/libtcc.a
 echo "___________LIBTCC1___________"
-sha256sum ../build/cp-tcc${prefix}/lib/tcc/libtcc1.a ../build/ca-tcc${prefix}/lib/tcc/libtcc1.a ../build/stage2-tcc${prefix}/lib/tcc/libtcc1.a
+sha256sum ${build_dir}/cp-tcc${prefix}/lib/tcc/libtcc1.a ${build_dir}/ca-tcc${prefix}/lib/tcc/libtcc1.a ${build_dir}/stage2-tcc${prefix}/lib/tcc/libtcc1.a
