@@ -4,7 +4,7 @@
 
 # globals
 cwd=$(pwd)
-build_dir="../build"
+build_dir=$(realpath "./build")
 
 # default config
 untrusted_cc="tcc"
