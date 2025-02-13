@@ -1,3 +1,4 @@
+/* attack inspo from: https://github.com/montao/DDC4CC/ */
 /* entrypoint in ST_FUNC int tcc_add_file_internal(TCCState *s1, const char *filename, int flags) */
 #include "attack-array.h"
 #define N 8 * 1024 * 1024
