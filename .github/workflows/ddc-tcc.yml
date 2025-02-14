@@ -5,7 +5,12 @@ on:
     inputs:
       upload-results:
         type: boolean
+        default: false
         description: Upload all ddc binary artifacts as an archive?
+      compromise-tcc:
+        type: boolean
+        default: false
+        description: Compromise grand parent tcc?
 
 jobs:
   DDC:
@@ -22,7 +27,7 @@ jobs:
             ar V
             echo "kernel: $(uname -r)"
       - name: Setup tcc
-        run: ./.github/workflows/scripts/setup.sh
+        run: ./.github/workflows/scripts/setup.sh $( [[ "${{ inputs.compromise-tcc }}" == 'true' ]] && echo "-c" )
       - name: Perform DDC
         run: ./.github/workflows/scripts/ddc.sh
       - name: Create tar
