@@ -56,9 +56,10 @@ if [ "$compromise" = true ] ; then
   ./gen < attack-template.c > attack-array.h
   sed '/^#include/d' attack-template.c >> attack-array.h
   ./gen < attack-array.h > attack-array2.h
-  sed 's/compile_attack/xx_compile_attack/g' attack-array.h >> attack-array2.h
+    # Need to only replace array names, not code section!!!!
+  sed 's/compile_attack\[\]/xx_compile_attack\[\]/g' attack-array.h >> attack-array2.h
   ./gen < attack-array2.h > attack-array3.h
-  sed 's/compile_attack/xx_compile_attack/g' attack-array2.h >> attack-array3.h
+  sed 's/compile_attack\[\]/xx_compile_attack\[\]/g' attack-array2.h >> attack-array3.h
   mv attack-array3.h attack.c
   sed -i '/\/\* open the file \*\//a #include "attack.c"' libtcc.c
 fi
