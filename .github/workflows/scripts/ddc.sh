@@ -38,10 +38,11 @@ Trusted compiler: ${trusted_cc}
 EOF
 
 # self-regeneration of untrusted compiler
+tar xvf ./tcc_src/"tinycc-f6385c0.tar.gz" 1> /dev/null
 cd tinycc-f6385c0
 prefix=$(pwd)/tcc-root
 make clean
-./configure --cc="${build_dir}/gp-tcc/bin/tcc" --prefix=${prefix} --extra-ldflags=-s
+./configure --cc="${build_dir}/gcc-tcc/bin/tcc" --prefix=${prefix} --extra-ldflags=-s
 make
 objcopy -D libtcc.a
 make install DESTDIR=${build_dir}/cp-tcc
@@ -58,7 +59,7 @@ make
 objcopy -D libtcc.a
 make install DESTDIR=${build_dir}/stage1-tcc
 ln -sfT ${build_dir}/stage1-tcc${prefix} ./tcc-root
-./configure --cc=${build_dir}/cp-tcc${prefix}/bin/tcc --prefix=${prefix} --extra-ldflags=-s
+./configure --cc=${build_dir}/stage1-tcc${prefix}/bin/tcc --prefix=${prefix} --extra-ldflags=-s
 make
 objcopy -D libtcc.a
 make install DESTDIR=${build_dir}/stage2-tcc
