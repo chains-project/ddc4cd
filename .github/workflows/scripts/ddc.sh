@@ -59,7 +59,7 @@ make
 objcopy -D libtcc.a
 make install DESTDIR=${build_dir}/stage1-tcc
 ln -sfT ${build_dir}/stage1-tcc${prefix} ./tcc-root
-./configure --cc=${build_dir}/cp-tcc${prefix}/bin/tcc --prefix=${prefix} --extra-ldflags=-s
+./configure --cc=${build_dir}/stage1-tcc${prefix}/bin/tcc --prefix=${prefix} --extra-ldflags=-s
 make
 objcopy -D libtcc.a
 make install DESTDIR=${build_dir}/stage2-tcc
