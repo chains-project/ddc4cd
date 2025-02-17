@@ -10,6 +10,7 @@ build_dir=$(realpath "./build")
 untrusted_cc="tcc"
 untrusted_src_dir="tinycc-f6385c0"
 trusted_cc="gcc"
+extra_flags="-s -fno-stack-protector"
 
 OPTSTRING="cst"
 while getopts ${OPTSTRING} opt; do
@@ -42,24 +43,24 @@ tar xvf ./tcc_src/"tinycc-f6385c0.tar.gz" 1> /dev/null
 cd tinycc-f6385c0
 prefix=$(pwd)/tcc-root
 make clean
-./configure --cc="${build_dir}/gcc-tcc/bin/tcc" --prefix=${prefix} --extra-ldflags=-s
+./configure --cc="${build_dir}/gcc-tcc/bin/tcc" --prefix=${prefix} --extra-ldflags=${extra_flags}
 make
 objcopy -D libtcc.a
 make install DESTDIR=${build_dir}/cp-tcc
 ln -sfT ${build_dir}/cp-tcc${prefix} ./tcc-root
 make clean
-./configure --cc=${build_dir}/cp-tcc${prefix}/bin/tcc --prefix=${prefix} --extra-ldflags=-s
+./configure --cc=${build_dir}/cp-tcc${prefix}/bin/tcc --prefix=${prefix} --extra-ldflags=${extra_flags}
 make
 objcopy -D libtcc.a
 make install DESTDIR=${build_dir}/ca-tcc
 # ddc process
 make clean
-./configure --cc=${trusted_cc} --prefix=${prefix} --extra-ldflags=-s
+./configure --cc=${trusted_cc} --prefix=${prefix} --extra-ldflags=${extra_flags}
 make
 objcopy -D libtcc.a
 make install DESTDIR=${build_dir}/stage1-tcc
 ln -sfT ${build_dir}/stage1-tcc${prefix} ./tcc-root
-./configure --cc=${build_dir}/stage1-tcc${prefix}/bin/tcc --prefix=${prefix} --extra-ldflags=-s
+./configure --cc=${build_dir}/stage1-tcc${prefix}/bin/tcc --prefix=${prefix} --extra-ldflags=${extra_flags}
 make
 objcopy -D libtcc.a
 make install DESTDIR=${build_dir}/stage2-tcc

@@ -12,6 +12,7 @@ bin_dir="${bin_prefix}/bin"
 compromise=false
 build_dir=$(realpath "./build")
 tcc_archive="tinycc-f6385c0.tar.gz"
+extra_flags="-s -fno-stack-protector"
 
 OPTSTRING="a:ct"
 
@@ -65,7 +66,7 @@ if [ "$compromise" = true ] ; then
 fi
 
 # Compile tcc with gcc into a temporary directory used only to compile again
-./configure --cc=gcc --prefix="${build_dir}/gcc-tcc" --extra-ldflags=-s
+./configure --cc=gcc --prefix="${build_dir}/gcc-tcc" --extra-ldflags=${extra_flags}
 make clean
 make
 objcopy -D libtcc.a
