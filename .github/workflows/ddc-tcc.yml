@@ -29,7 +29,13 @@ jobs:
       - name: Setup tcc
         run: ./.github/workflows/scripts/setup.sh $( [[ "${{ inputs.compromise-tcc }}" == 'true' ]] && echo "-c" )
       - name: Perform DDC
-        run: ./.github/workflows/scripts/ddc.sh
+        run: ./.github/workflows/scripts/ddc.sh -e ${{ matrix.os }}
+      - name: Upload hashes
+        id: upload_hashes  
+        uses: actions/upload-artifact@v4
+        with:
+          name: hashes
+          path: /tmp/${{ matrix.os }}.txt
       - name: Create tar
         if: ${{ github.event.inputs.upload-results == 'true' }}
         run: tar -czf ./build-${{matrix.os}}.tar.gz ./build
@@ -40,3 +46,16 @@ jobs:
           if-no-files-found: error
           path: ./build-${{matrix.os}}.tar.gz
           name: build-${{matrix.os}}.tar.gz
+  
+  summary:
+    runs-on: ubuntu-latest
+    needs: [DDC]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch hashes
+        uses: actions/download-artifact@v4
+        with:
+          name: hashes
+          path: hashes
+      - run: |
+          cat hashes/*

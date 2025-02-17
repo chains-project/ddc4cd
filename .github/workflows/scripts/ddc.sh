@@ -8,15 +8,19 @@ build_dir=$(realpath "./build")
 
 # default config
 untrusted_cc="tcc"
+ddc_env="none"
 untrusted_src_dir="tinycc-f6385c0"
 trusted_cc="gcc"
 extra_flags="-s -fno-stack-protector"
 
-OPTSTRING="cst"
+OPTSTRING="cste:"
 while getopts ${OPTSTRING} opt; do
   case ${opt} in
     c)
       untrusted_cc=${OPTARG}
+      ;;
+    e)
+      ddc_env=${OPTARG}
       ;;
     s)
       untrusted_src_dir=${OPTARG}
@@ -64,9 +68,13 @@ ln -sfT ${build_dir}/stage1-tcc${prefix} ./tcc-root
 make
 objcopy -D libtcc.a
 make install DESTDIR=${build_dir}/stage2-tcc
-echo "___________BINARIES___________"
-sha256sum ${build_dir}/cp-tcc${prefix}/bin/tcc ${build_dir}/ca-tcc${prefix}/bin/tcc ${build_dir}/stage2-tcc${prefix}/bin/tcc 
-echo "___________LIBTCC___________"
-sha256sum ${build_dir}/cp-tcc${prefix}/lib/libtcc.a ${build_dir}/ca-tcc${prefix}/lib/libtcc.a ${build_dir}/stage2-tcc${prefix}/lib/libtcc.a
-echo "___________LIBTCC1___________"
-sha256sum ${build_dir}/cp-tcc${prefix}/lib/tcc/libtcc1.a ${build_dir}/ca-tcc${prefix}/lib/tcc/libtcc1.a ${build_dir}/stage2-tcc${prefix}/lib/tcc/libtcc1.a
+# save & print hashes
+log_file=/tmp/${ddc_env}.txt
+echo "***********${ddc_env}***********" >> ${log_file}
+echo "___________BINARIES___________" >> ${log_file}
+sha256sum ${build_dir}/cp-tcc${prefix}/bin/tcc ${build_dir}/ca-tcc${prefix}/bin/tcc ${build_dir}/stage2-tcc${prefix}/bin/tcc >> ${log_file}
+echo "___________LIBTCC___________" >> ${log_file}
+sha256sum ${build_dir}/cp-tcc${prefix}/lib/libtcc.a ${build_dir}/ca-tcc${prefix}/lib/libtcc.a ${build_dir}/stage2-tcc${prefix}/lib/libtcc.a >> ${log_file}
+echo "___________LIBTCC1___________" >> ${log_file}
+sha256sum ${build_dir}/cp-tcc${prefix}/lib/tcc/libtcc1.a ${build_dir}/ca-tcc${prefix}/lib/tcc/libtcc1.a ${build_dir}/stage2-tcc${prefix}/lib/tcc/libtcc1.a >> ${log_file}
+cat ${log_file}
