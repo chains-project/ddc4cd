@@ -1,3 +1,2 @@
-* Each job should output hash of result into final job that can compare
-* Dynamicallly generate configs instead of hard coding
-* Change compiler under test to tcc
+* Remove ubuntu-20.04 runner since it will be deprecated in april
+* Change prefix used when building tcc to be something reproducible, for example /tmp/build, to not rely on user's home folder.
