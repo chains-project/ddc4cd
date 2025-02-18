@@ -7,7 +7,6 @@ cwd=$(pwd)
 build_dir=/tmp/build
 prefix=${build_dir}/tcc-root
 ln_location=${build_dir}/tcc-root
-log_file=/tmp/${ddc_env}.txt
 
 # default config
 untrusted_cc="tcc"
@@ -71,6 +70,7 @@ make
 objcopy -D libtcc.a
 make install DESTDIR=${build_dir}/stage2-tcc
 # save & print hashes
+log_file=/tmp/build/${ddc_env}.txt
 echo "***********${ddc_env}***********" > ${log_file}
 echo "___________BINARIES___________" >> ${log_file}
 sha256sum ${build_dir}/cp-tcc${prefix}/bin/tcc ${build_dir}/ca-tcc${prefix}/bin/tcc ${build_dir}/stage2-tcc${prefix}/bin/tcc >> ${log_file}
