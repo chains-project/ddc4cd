@@ -59,4 +59,5 @@ jobs:
           pattern: ubuntu-*
           merge-multiple: true
       - run: |
+          ls hashes
           cat hashes/*
