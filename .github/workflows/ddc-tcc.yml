@@ -35,7 +35,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.os }}.txt
-          path: /tmp/${{ matrix.os }}.txt
+          path: /tmp/build/${{ matrix.os }}.txt
       - name: Create tar
         if: ${{ github.event.inputs.upload-results == 'true' }}
         run: tar -czf ./build-${{matrix.os}}.tar.gz ./build
