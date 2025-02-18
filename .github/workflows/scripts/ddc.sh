@@ -4,7 +4,10 @@
 
 # globals
 cwd=$(pwd)
-build_dir=$(realpath "./build")
+build_dir=/tmp/build
+prefix=${build_dir}/tcc-root
+ln_location=${build_dir}/tcc-root
+log_file=/tmp/${ddc_env}.txt
 
 # default config
 untrusted_cc="tcc"
@@ -45,13 +48,12 @@ EOF
 # self-regeneration of untrusted compiler
 tar xvf ./tcc_src/"tinycc-f6385c0.tar.gz" 1> /dev/null
 cd tinycc-f6385c0
-prefix=$(pwd)/tcc-root
 make clean
 ./configure --cc="${build_dir}/gcc-tcc/bin/tcc" --prefix=${prefix} --extra-ldflags=${extra_flags}
 make
 objcopy -D libtcc.a
 make install DESTDIR=${build_dir}/cp-tcc
-ln -sfT ${build_dir}/cp-tcc${prefix} ./tcc-root
+ln -sfT ${build_dir}/cp-tcc${prefix} ${ln_location}
 make clean
 ./configure --cc=${build_dir}/cp-tcc${prefix}/bin/tcc --prefix=${prefix} --extra-ldflags=${extra_flags}
 make
@@ -63,14 +65,13 @@ make clean
 make
 objcopy -D libtcc.a
 make install DESTDIR=${build_dir}/stage1-tcc
-ln -sfT ${build_dir}/stage1-tcc${prefix} ./tcc-root
+ln -sfT ${build_dir}/stage1-tcc${prefix} ${ln_location}
 ./configure --cc=${build_dir}/stage1-tcc${prefix}/bin/tcc --prefix=${prefix} --extra-ldflags=${extra_flags}
 make
 objcopy -D libtcc.a
 make install DESTDIR=${build_dir}/stage2-tcc
 # save & print hashes
-log_file=/tmp/${ddc_env}.txt
-echo "***********${ddc_env}***********" >> ${log_file}
+echo "***********${ddc_env}***********" > ${log_file}
 echo "___________BINARIES___________" >> ${log_file}
 sha256sum ${build_dir}/cp-tcc${prefix}/bin/tcc ${build_dir}/ca-tcc${prefix}/bin/tcc ${build_dir}/stage2-tcc${prefix}/bin/tcc >> ${log_file}
 echo "___________LIBTCC___________" >> ${log_file}

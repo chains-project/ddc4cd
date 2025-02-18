@@ -10,7 +10,7 @@ bin_dir="${bin_prefix}/bin"
 
 # default config
 compromise=false
-build_dir=$(realpath "./build")
+build_dir=/tmp/build
 tcc_archive="tinycc-f6385c0.tar.gz"
 extra_flags="-s -fno-stack-protector"
 
