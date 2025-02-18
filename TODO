@@ -1,3 +1,4 @@
 * Remove ubuntu-20.04 runner since it will be deprecated in april
 * Change prefix used when building tcc to be something reproducible, for example /tmp/build, to not rely on user's home folder.
 * Structure log file in a more consistent manner, for example JSON or csv
+* Set TCC_GITHASH definition to a static value, to allow reproducibility
