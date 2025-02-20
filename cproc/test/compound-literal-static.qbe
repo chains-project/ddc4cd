@@ -1,2 +1,0 @@
-data $.L.1 = align 4 { w 2, }
-export data $x = align 8 { l $.L.1, }

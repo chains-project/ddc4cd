@@ -1,1 +1,0 @@
-export data $s = align 4 { w 1, w 2, }

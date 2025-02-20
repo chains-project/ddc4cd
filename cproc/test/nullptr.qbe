@@ -1,3 +1,0 @@
-export data $x = align 8 { l 0, }
-export data $y = align 8 { l 0, }
-export data $z = align 1 { b 0, }

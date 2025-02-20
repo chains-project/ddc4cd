@@ -1,7 +1,0 @@
-export
-function $f() {
-@start.1
-@body.2
-	%.1 =w call $g()
-	ret
-}

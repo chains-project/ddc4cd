@@ -1,6 +1,0 @@
-export
-function w $main() {
-@start.1
-@body.2
-	ret 0
-}
