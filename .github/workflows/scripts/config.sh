@@ -4,4 +4,3 @@ build_dir=/tmp/build
 prefix=${build_dir}/tcc-root
 ln_location=${build_dir}/tcc-root
 extra_flags="-s"
-src_dir_a="src_a"
