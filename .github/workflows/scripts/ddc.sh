@@ -4,16 +4,13 @@
 
 # globals
 cwd=$(pwd)
-build_dir=/tmp/build
-prefix=${build_dir}/tcc-root
-ln_location=${build_dir}/tcc-root
+this_dir="$(dirname "$0")"
+source "$this_dir/config.sh"
 
 # default config
-untrusted_cc="tcc"
 ddc_env="none"
 untrusted_src_dir="tinycc-f6385c0"
 trusted_cc="gcc"
-extra_flags="-s"
 
 OPTSTRING="cste:"
 while getopts ${OPTSTRING} opt; do
@@ -39,7 +36,6 @@ done
 
 cat << EOF
 Performing DDC with...
-Untrusted compiler: ${untrusted_cc}
 Untrusted src dir: ${untrusted_src_dir}
 Trusted compiler: ${trusted_cc}
 EOF
