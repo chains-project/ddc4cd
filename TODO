@@ -1,4 +1,5 @@
-* Remove ubuntu-20.04 runner since it will be deprecated in april
-* Change prefix used when building tcc to be something reproducible, for example /tmp/build, to not rely on user's home folder.
 * Structure log file in a more consistent manner, for example JSON or csv
-* Set TCC_GITHASH definition to a static value, to allow reproducibility
+* Add version to build dirs to allow different version of the same compiler to be used
+* Add support for fetching init.sh from other source
+* Add support to release resulting binary
+* Fail final job if hashes don't match and produce a report showing which hash differs etc
