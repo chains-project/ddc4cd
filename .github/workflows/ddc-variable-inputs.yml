@@ -23,10 +23,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Setup tcc
         run: ./.github/workflows/scripts/setup.sh $( [[ "${{ inputs.compromise-tcc }}" == 'true' ]] && echo "-c" )
-      - name: Initialise DDC
-        run: source ${{ inputs.init-script }}
       - name: Perform DDC
-        run: ./.github/workflows/scripts/ddc.sh -e ubuntu-24.04
+        run: ./.github/workflows/scripts/ddc.sh -e ubuntu-24.04 -i ${{ inputs.init-script }}
       - name: Upload hashes
         id: upload_hashes  
         uses: actions/upload-artifact@v4
