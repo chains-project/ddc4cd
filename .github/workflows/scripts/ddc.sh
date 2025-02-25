@@ -9,19 +9,24 @@ source "$this_dir/config.sh"
 
 # default config
 ddc_env="none"
+init_script=""
 
-OPTSTRING="e:"
+OPTSTRING="e:i:"
 while getopts ${OPTSTRING} opt; do
   case ${opt} in
     e)
       ddc_env=${OPTARG}
       ;;
+    i)
+      init_script=${OPTARG}
     ?)
       echo "Invalid option: -${OPTARG}."
       exit 1
       ;;
   esac
 done
+
+source $init_script
 
 cat << EOF
 Performing DDC with...
