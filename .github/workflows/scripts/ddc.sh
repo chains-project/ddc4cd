@@ -9,7 +9,6 @@ source "$this_dir/config.sh"
 
 # default config
 ddc_env="none"
-untrusted_src_dir="tinycc-f6385c0"
 trusted_cc="gcc"
 
 OPTSTRING="cste:"
@@ -39,12 +38,13 @@ Performing DDC with...
 Untrusted src dir: ${untrusted_src_dir}
 Trusted compiler: ${trusted_cc}
 EOF
-
+# unpacking source code
+mkdir $src_dir_a
+tar xzf ./tcc_src/"tinycc-f6385c0.tar.gz" -C $src_dir_a --strip-components=1 1> /dev/null
 # self-regeneration of untrusted compiler
-tar xvf ./tcc_src/"tinycc-f6385c0.tar.gz" 1> /dev/null
-$cwd/.github/workflows/scripts/double-compile.sh ${build_dir}/gcc-tcc/bin/tcc tinycc-f6385c0
+$cwd/.github/workflows/scripts/double-compile.sh ${build_dir}/gcc-tcc/bin/tcc $src_dir_a
 # ddc process
-$cwd/.github/workflows/scripts/double-compile.sh $trusted_cc tinycc-f6385c0
+$cwd/.github/workflows/scripts/double-compile.sh $trusted_cc $src_dir_a
 # save & print hashes
 log_file=/tmp/build/${ddc_env}.txt
 echo "***********${ddc_env}***********" > ${log_file}
