@@ -7,7 +7,6 @@ pkgs.mkShell {
   buildInputs = [ 
     pkgs.stdenv
     pkgs.clang
-    pkgs.tinycc
   ];
   shellHook = ''
     export STAGE1_CONF="--crtprefix=${lib.getLib pkgs.stdenv.cc.libc}/lib --sysincludepaths=${lib.getDev pkgs.stdenv.cc.libc}/include:{B}/include --libpaths={B}:${lib.getLib pkgs.stdenv.cc.libc}/lib --elfinterp=${lib.getLib pkgs.stdenv.cc.libc}/lib64/ld-linux-x86-64.so.2"
