@@ -34,7 +34,7 @@ jobs:
           path: /tmp/build/ubuntu-24.04.txt
       - name: Create tar
         if: ${{ github.event.inputs.upload-results == 'true' }}
-        run: tar -czf ./build-ubuntu-24.04.tar.gz ./build
+        run: tar -czf ./build-ubuntu-24.04.tar.gz /tmp/build
       - name: Upload results
         if: ${{ github.event.inputs.upload-results == 'true' }}
         uses: actions/upload-artifact@v4
