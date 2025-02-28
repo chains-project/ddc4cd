@@ -28,23 +28,23 @@ jobs:
       - name: Setup tcc
         run: nix-shell --pure --run "./.github/workflows/scripts/setup.sh $( [[ "${{ inputs.compromise-tcc }}" == 'true' ]] && echo "-c" )"
       - name: Perform DDC
-        run: nix-shell --pure --run "./.github/workflows/scripts/ddc.sh -e ubuntu-24.04 -i ${{ inputs.init-script }}"
+        run: nix-shell --pure --run "./.github/workflows/scripts/ddc.sh -e ${{ matrix.os }} -i ${{ inputs.init-script }}"
       - name: Upload hashes
         id: upload_hashes  
         uses: actions/upload-artifact@v4
         with:
-          name: ubuntu-24.04.txt
-          path: /tmp/build/ubuntu-24.04.txt
+          name: ${{ matrix.os }}.txt
+          path: /tmp/build/${{ matrix.os }}.txt
       - name: Create tar
         if: ${{ github.event.inputs.upload-results == 'true' }}
-        run: tar -czf ./build-ubuntu-24.04.tar.gz /tmp/build
+        run: tar -czf ./build-${{ matrix.os }}.tar.gz /tmp/build
       - name: Upload results
         if: ${{ github.event.inputs.upload-results == 'true' }}
         uses: actions/upload-artifact@v4
         with:
           if-no-files-found: error
-          path: ./build-ubuntu-24.04.tar.gz
-          name: build-ubuntu-24.04.tar.gz
+          path: ./build-${{ matrix.os }}.tar.gz
+          name: build-${{ matrix.os }}.tar.gz
   
   summary:
     runs-on: ubuntu-latest
