@@ -1,11 +1,16 @@
 let pkgs = import (builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/21808d22b1cda1898b71cf1a1beb524a97add2c4.tar.gz";
-  }) {};
-
+      url = "https://github.com/NixOS/nixpkgs/archive/07518c851b0f12351d7709274bbbd4ecc1f089c7.tar.gz";
+    }) {};
+    lib = pkgs.lib;
 in
 pkgs.mkShell {
   buildInputs = [ 
     pkgs.stdenv
     pkgs.clang
+    pkgs.tinycc
   ];
+  shellHook = ''
+    export STAGE1_CONF="--crtprefix=${lib.getLib pkgs.stdenv.cc.libc}/lib --sysincludepaths=${lib.getDev pkgs.stdenv.cc.libc}/include:{B}/include --libpaths={B}:${lib.getLib pkgs.stdenv.cc.libc}/lib --elfinterp=${lib.getLib pkgs.stdenv.cc.libc}/lib64/ld-linux-x86-64.so.2"
+    echo $STAGE1_CONF
+  '';
 }

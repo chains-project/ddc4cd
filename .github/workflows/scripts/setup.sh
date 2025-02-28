@@ -66,7 +66,7 @@ if [ "$compromise" = true ] ; then
 fi
 
 # Compile tcc with gcc into a temporary directory used only to compile again
-./configure --cc=gcc --prefix="${build_dir}/gcc-tcc" --extra-ldflags=${extra_flags}
+./configure --cc=gcc --prefix="${build_dir}/gcc-tcc" --extra-ldflags=${extra_flags} $STAGE1_CONF
 make clean
 make
 objcopy -D libtcc.a
