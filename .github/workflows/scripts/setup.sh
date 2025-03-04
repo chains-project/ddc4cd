@@ -12,7 +12,7 @@ bin_dir="${bin_prefix}/bin"
 compromise=false
 build_dir=/tmp/build
 tcc_archive="tinycc-f6385c0.tar.gz"
-extra_flags="-s -fno-stack-protector"
+extra_flags="-s"
 
 OPTSTRING="a:ct"
 
