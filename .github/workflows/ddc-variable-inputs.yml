@@ -20,7 +20,7 @@ jobs:
   DDC:
     strategy:
         matrix:
-            os: [ubuntu-20.04, ubuntu-22.04, ubuntu-24.04]
+            os: [ubuntu-22.04, ubuntu-24.04]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -30,7 +30,7 @@ jobs:
       - name: Perform DDC
         run: nix-shell --pure --run "./.github/workflows/scripts/ddc.sh -e ${{ matrix.os }} -i ${{ inputs.init-script }}"
       - name: Upload hashes
-        id: upload_hashes  
+        id: upload_hashes
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.os }}.txt
@@ -47,7 +47,7 @@ jobs:
           name: build-${{ matrix.os }}.tar.gz
   
   summary:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: [DDC]
     steps:
       - uses: actions/checkout@v4
