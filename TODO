@@ -1,5 +1,8 @@
-* Structure log file in a more consistent manner, for example JSON or csv
-* Add version to build dirs to allow different version of the same compiler to be used
+* DDC job should always output binaries
+* Summary job should compute hashes and produce a report of the DDC process
 * Add support for fetching init.sh from other source
-* Add support to release resulting binary
+* Add support to release resulting binary - possibly another binary than tcc, ie. the resulting tcc from successful DDC is used to compile another source code
 * Fail final job if hashes don't match and produce a report showing which hash differs etc
+
+Low priority:
+* Add version to build dirs to allow different version of the same compiler to be used
