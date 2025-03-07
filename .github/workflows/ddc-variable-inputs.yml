@@ -3,10 +3,6 @@ run-name: ${{ github.actor }} is testing out DDC with variable inputs 🚀
 on: 
   workflow_dispatch:
     inputs:
-      upload-results:
-        type: boolean
-        default: false
-        description: Upload all ddc binary artifacts as an archive?
       compromise-tcc:
         type: boolean
         default: false
@@ -35,28 +31,23 @@ jobs:
         with:
           name: ${{ matrix.os }}.txt
           path: /tmp/build/${{ matrix.os }}.txt
-      - name: Create tar
-        if: ${{ github.event.inputs.upload-results == 'true' }}
-        run: tar -czf ./build-${{ matrix.os }}.tar.gz /tmp/build
-      - name: Upload results
-        if: ${{ github.event.inputs.upload-results == 'true' }}
+      - name: Upload build
         uses: actions/upload-artifact@v4
         with:
           if-no-files-found: error
-          path: ./build-${{ matrix.os }}.tar.gz
-          name: build-${{ matrix.os }}.tar.gz
+          path: /tmp/build
+          name: build-${{ matrix.os }}
   
   summary:
     runs-on: ubuntu-24.04
     needs: [DDC]
     steps:
       - uses: actions/checkout@v4
-      - name: Fetch hashes
+      - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
-          path: hashes
-          pattern: ubuntu-*
+          path: build-artifacts
+          pattern: build-*
           merge-multiple: true
       - run: |
-          ls hashes
-          cat hashes/*
+          ls build-artifacts
