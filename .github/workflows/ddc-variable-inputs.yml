@@ -48,5 +48,5 @@ jobs:
         with:
           path: build-artifacts
           pattern: build-*
-      - run: |
-          ls build-artifacts
+      - name: Create summary
+        run: ./.github/workflows/scripts/summary.sh
