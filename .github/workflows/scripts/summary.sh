@@ -5,13 +5,13 @@ sha_tcc_all=""
 sha_libtcc_all=""
 sha_libtcc1_all=""
 fail_on_exit=false
+summary_output=""
 
 summarise_one_build () {
     
-    {   echo "### DDC results ${1}" 
-        echo "| File | sha256 |"
-        echo "| :--- | :--- |"
-    } >> $GITHUB_STEP_SUMMARY
+    summary_output+="### DDC results ${1}\n" 
+    summary_output+="| File | sha256 |\n"
+    summary_output+="| :--- | :--- |\n"
 
     # calculate relevant hashes
     local sha_tcc=$(sha256sum $1/*stage2/tmp/build/tcc-root/bin/tcc)
@@ -19,21 +19,21 @@ summarise_one_build () {
     local sha_libtcc1=$(sha256sum $1/*stage2/tmp/build/tcc-root/lib/tcc/libtcc1.a)
 
     while read -r hash filename; do
-        echo "| $filename | $hash |" >> $GITHUB_STEP_SUMMARY
+        summary_output+="| $filename | $hash |\n"
         sha_tcc_all+="$hash"$'\n'
     done < <(echo "$sha_tcc") 
 
     echo "| :--- | :--- |"
 
     while read -r hash filename; do
-        echo "| $filename | $hash |" >> $GITHUB_STEP_SUMMARY
+        summary_output+="| $filename | $hash |\n"
         sha_libtcc_all+="$hash"$'\n'
     done < <(echo "$sha_libtcc")
 
     echo "| :--- | :--- |"
 
     while read -r hash filename; do
-        echo "| $filename | $hash |" >> $GITHUB_STEP_SUMMARY
+        summary_output+="| $filename | $hash |\n"
         sha_libtcc1_all+="$hash"$'\n'
     done < <(echo "$sha_libtcc1")
 }
@@ -57,22 +57,24 @@ unique_hashes_libtcc1=$(echo "$sha_libtcc1_all" | sort -u)
 # Check if all hashes are the same for each relevant file
 echo "## DDC Summary: " >> $GITHUB_STEP_SUMMARY
 if [ $(echo "$unique_hashes_tcc" | wc -l) -ne 1 ]; then
-    echo "Error: All SHA256 hashes do not match for tcc!" >> $GITHUB_STEP_SUMMARY
+    echo ":x: Error: All SHA256 hashes do not match for tcc!" >> $GITHUB_STEP_SUMMARY
     fail_on_exit=true
 fi
 
 if [ $(echo "$unique_hashes_libtcc" | wc -l) -ne 1 ]; then
-    echo "Error: All SHA256 hashes do not match for libtcc!" >> $GITHUB_STEP_SUMMARY
+    echo ":x: Error: All SHA256 hashes do not match for libtcc!" >> $GITHUB_STEP_SUMMARY
     fail_on_exit=true
 fi
 
 if [ $(echo "$unique_hashes_libtcc1" | wc -l) -ne 1 ]; then
-    echo "Error: All SHA256 hashes do not match for libtcc1!" >> $GITHUB_STEP_SUMMARY
+    echo ":x: Error: All SHA256 hashes do not match for libtcc1!" >> $GITHUB_STEP_SUMMARY
     fail_on_exit=true
 fi
 
 if [ "$fail_on_exit" = true ]; then
+    echo -e $summary_output >> $GITHUB_STEP_SUMMARY
     exit 1
 else
-    echo "Successful!" >> $GITHUB_STEP_SUMMARY
+    echo ":white_check_mark: Successful!" >> $GITHUB_STEP_SUMMARY
+    echo -e $summary_output >> $GITHUB_STEP_SUMMARY
 fi
