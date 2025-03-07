@@ -23,6 +23,7 @@ summarise_one_build () {
         sha_tcc_all+="$hash"$'\n'
     done < <(echo "$sha_tcc") 
 
+    summary_output+="\n"
     summary_output+="| libtcc | sha256 |\n"
     summary_output+="| :--- | :--- |\n"
 
@@ -31,6 +32,7 @@ summarise_one_build () {
         sha_libtcc_all+="$hash"$'\n'
     done < <(echo "$sha_libtcc")
 
+    summary_output+="\n"
     summary_output+="| libtcc1 | sha256 |\n"
     summary_output+="| :--- | :--- |\n"
 
