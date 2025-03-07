@@ -39,7 +39,7 @@ summarise_one_build () {
 }
 
 # find all build directories
-for dir in build-*; do
+for dir in build-artifacts/build-*; do
     if [ -d "$dir" ]; then
         summarise_one_build "$dir"
     fi
