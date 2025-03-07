@@ -23,14 +23,14 @@ summarise_one_build () {
         sha_tcc_all+="$hash"$'\n'
     done < <(echo "$sha_tcc") 
 
-    summary_output+="| *libtcc.a* | *sha256* |\n"
+    summary_output+="| **libtcc.a** | **sha256** |\n"
 
     while read -r hash filename; do
         summary_output+="| $filename | $hash |\n"
         sha_libtcc_all+="$hash"$'\n'
     done < <(echo "$sha_libtcc")
 
-    summary_output+="| *libtcc1.a* | *sha256* |\n"
+    summary_output+="| **libtcc1.a** | **sha256** |\n"
 
     while read -r hash filename; do
         summary_output+="| $filename | $hash |\n"
