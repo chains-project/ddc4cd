@@ -38,7 +38,7 @@ jobs:
           path: /tmp/build
           name: build-${{ matrix.os }}
   
-  summary:
+  Results:
     runs-on: ubuntu-24.04
     needs: [DDC]
     steps:
