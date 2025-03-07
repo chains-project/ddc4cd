@@ -10,7 +10,7 @@ summary_output=""
 summarise_one_build () {
     
     summary_output+="### DDC results ${1}\n" 
-    summary_output+="| File | sha256 |\n"
+    summary_output+="| tcc | sha256 |\n"
     summary_output+="| :--- | :--- |\n"
 
     # calculate relevant hashes
@@ -23,14 +23,16 @@ summarise_one_build () {
         sha_tcc_all+="$hash"$'\n'
     done < <(echo "$sha_tcc") 
 
-    echo "| :--- | :--- |"
+    summary_output+="| libtcc | sha256 |\n"
+    summary_output+="| :--- | :--- |\n"
 
     while read -r hash filename; do
         summary_output+="| $filename | $hash |\n"
         sha_libtcc_all+="$hash"$'\n'
     done < <(echo "$sha_libtcc")
 
-    echo "| :--- | :--- |"
+    summary_output+="| libtcc1 | sha256 |\n"
+    summary_output+="| :--- | :--- |\n"
 
     while read -r hash filename; do
         summary_output+="| $filename | $hash |\n"
