@@ -48,6 +48,5 @@ jobs:
         with:
           path: build-artifacts
           pattern: build-*
-          merge-multiple: true
       - run: |
           ls build-artifacts
