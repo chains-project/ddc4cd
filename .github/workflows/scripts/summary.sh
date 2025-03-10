@@ -19,21 +19,21 @@ summarise_one_build () {
     local sha_libtcc1=$(sha256sum $1/*stage2/tmp/build/tcc-root/lib/tcc/libtcc1.a)
 
     while read -r hash filename; do
-        summary_output+="| $filename | `$hash` |\n"
+        summary_output+="| $filename | \`$hash\` |\n"
         sha_tcc_all+="$hash"$'\n'
     done < <(echo "$sha_tcc") 
 
     summary_output+="| **libtcc.a** | **sha256** |\n"
 
     while read -r hash filename; do
-        summary_output+="| $filename | `$hash` |\n"
+        summary_output+="| $filename | \`$hash\` |\n"
         sha_libtcc_all+="$hash"$'\n'
     done < <(echo "$sha_libtcc")
 
     summary_output+="| **libtcc1.a** | **sha256** |\n"
 
     while read -r hash filename; do
-        summary_output+="| $filename | `$hash` |\n"
+        summary_output+="| $filename | \`$hash\` |\n"
         sha_libtcc1_all+="$hash"$'\n'
     done < <(echo "$sha_libtcc1")
 }
