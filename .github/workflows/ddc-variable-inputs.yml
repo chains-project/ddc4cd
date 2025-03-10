@@ -11,6 +11,10 @@ on:
         type: string
         default: ".github/workflows/scripts/init.sh"
         description: "Script for setting up compilers for DDC"
+      tcc-commit-hash:
+        type: string
+        default: "f6385c05308f715bdd2c06336801193a21d69b50"
+        description: "Commit hash from https://repo.or.cz/tinycc.git to use as input source in DDC"
 
 jobs:
   DDC:
