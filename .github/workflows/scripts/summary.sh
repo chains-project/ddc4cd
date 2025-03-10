@@ -6,6 +6,7 @@ sha_libtcc_all=""
 sha_libtcc1_all=""
 fail_on_exit=false
 summary_output=""
+stage2_prefix="/usr/local"
 
 summarise_one_build () {
     
@@ -14,9 +15,9 @@ summarise_one_build () {
     summary_output+="| :--- | :--- |\n"
 
     # calculate relevant hashes
-    local sha_tcc=$(sha256sum $1/*stage2/tmp/build/tcc-root/bin/tcc)
-    local sha_libtcc=$(sha256sum $1/*stage2/tmp/build/tcc-root/lib/libtcc.a)
-    local sha_libtcc1=$(sha256sum $1/*stage2/tmp/build/tcc-root/lib/tcc/libtcc1.a)
+    local sha_tcc=$(sha256sum $1/*stage2${stage2_prefix}/bin/tcc)
+    local sha_libtcc=$(sha256sum $1/*stage2${stage2_prefix}/lib/libtcc.a)
+    local sha_libtcc1=$(sha256sum $1/*stage2${stage2_prefix}/lib/tcc/libtcc1.a)
 
     while read -r hash filename; do
         summary_output+="| $filename | $hash |\n"
