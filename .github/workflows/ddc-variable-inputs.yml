@@ -43,4 +43,4 @@ jobs:
           path: build-artifacts
           pattern: build-*
       - name: Create summary
-        run: ./.github/workflows/scripts/summary.sh
+        run: ./.github/workflows/scripts/summary.sh ${{ inputs.tcc-commit-hash }}

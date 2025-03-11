@@ -56,7 +56,7 @@ unique_hashes_tcc=$(echo "$sha_tcc_all" | sort -u)
 unique_hashes_libtcc=$(echo "$sha_libtcc_all" | sort -u)
 unique_hashes_libtcc1=$(echo "$sha_libtcc1_all" | sort -u)
 # Check if all hashes are the same for each relevant file
-echo "## DDC Summary: " >> $GITHUB_STEP_SUMMARY
+echo "## DDC Summary: tcc@${1}" >> $GITHUB_STEP_SUMMARY
 if [ $(echo "$unique_hashes_tcc" | wc -l) -ne 1 ]; then
     echo ":x: Error: All SHA256 hashes do not match for tcc!" >> $GITHUB_STEP_SUMMARY
     fail_on_exit=true
