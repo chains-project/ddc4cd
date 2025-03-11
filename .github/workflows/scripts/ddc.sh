@@ -10,16 +10,16 @@ stage2_prefix="/usr/local"
 
 # default config
 ddc_env="none"
-init_script=""
+tcc_hash=""
 
-OPTSTRING="e:i:"
+OPTSTRING="e:h:"
 while getopts ${OPTSTRING} opt; do
   case ${opt} in
     e)
       ddc_env=${OPTARG}
       ;;
-    i)
-      init_script=${OPTARG}
+    h)
+      tcc_hash=${OPTARG}
       ;;
     ?)
       echo "Invalid option: -${OPTARG}."
@@ -28,7 +28,12 @@ while getopts ${OPTSTRING} opt; do
   esac
 done
 
-source $init_script
+# donwload and unpack correct tcc source
+mkdir -p /tmp/src_a
+if ! wget -O - https://repo.or.cz/tinycc.git/snapshot/${tcc_hash}.tar.gz | tar -xz -C $src_a_dir --strip-components=1 --overwrite; then
+    echo "Error: Failed to download or extract the tcc archive. Is the hash a valid commit?" >&2
+    exit 1
+fi
 
 cat << EOF
 Performing DDC with...

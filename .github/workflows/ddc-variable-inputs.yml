@@ -7,10 +7,6 @@ on:
         type: boolean
         default: false
         description: Compromise grand parent tcc?
-      init-script:
-        type: string
-        default: ".github/workflows/scripts/init.sh"
-        description: "Script for setting up compilers for DDC"
       tcc-commit-hash:
         type: string
         default: "f6385c05308f715bdd2c06336801193a21d69b50"
@@ -28,7 +24,7 @@ jobs:
       - name: Setup tcc
         run: nix-shell --pure --run "./.github/workflows/scripts/setup.sh $( [[ "${{ inputs.compromise-tcc }}" == 'true' ]] && echo "-c" )"
       - name: Perform DDC
-        run: nix-shell --pure --run "./.github/workflows/scripts/ddc.sh -e ${{ matrix.os }} -i ${{ inputs.init-script }}"
+        run: nix-shell --pure --run "./.github/workflows/scripts/ddc.sh -e ${{ matrix.os }} -h ${{ inputs.tcc-commit-hash }}"
       - name: Upload build
         uses: actions/upload-artifact@v4
         with:
