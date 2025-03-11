@@ -30,7 +30,7 @@ done
 
 # donwload and unpack correct tcc source
 mkdir -p /tmp/src_a
-if ! wget -O - https://repo.or.cz/tinycc.git/snapshot/${tcc_hash}.tar.gz | tar -xz -C $src_a_dir --strip-components=1 --overwrite; then
+if ! wget --ca-directory=/etc/ssl/certs/ -O - https://repo.or.cz/tinycc.git/snapshot/${tcc_hash}.tar.gz | tar -xz -C $src_a_dir --strip-components=1 --overwrite; then
     echo "Error: Failed to download or extract the tcc archive. Is the hash a valid commit?" >&2
     exit 1
 fi
