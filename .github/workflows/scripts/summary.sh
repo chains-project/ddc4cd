@@ -6,6 +6,7 @@ sha_libtcc_all=""
 sha_libtcc1_all=""
 fail_on_exit=false
 summary_output=""
+stage2_prefix="/usr/local"
 
 summarise_one_build () {
     
@@ -14,9 +15,9 @@ summarise_one_build () {
     summary_output+="| :--- | :--- |\n"
 
     # calculate relevant hashes
-    local sha_tcc=$(sha256sum $1/*stage2/tmp/build/tcc-root/bin/tcc)
-    local sha_libtcc=$(sha256sum $1/*stage2/tmp/build/tcc-root/lib/libtcc.a)
-    local sha_libtcc1=$(sha256sum $1/*stage2/tmp/build/tcc-root/lib/tcc/libtcc1.a)
+    local sha_tcc=$(sha256sum $1/*stage2${stage2_prefix}/bin/tcc)
+    local sha_libtcc=$(sha256sum $1/*stage2${stage2_prefix}/lib/libtcc.a)
+    local sha_libtcc1=$(sha256sum $1/*stage2${stage2_prefix}/lib/tcc/libtcc1.a)
 
     while read -r hash filename; do
         summary_output+="| $filename | $hash |\n"
@@ -55,7 +56,7 @@ unique_hashes_tcc=$(echo "$sha_tcc_all" | sort -u)
 unique_hashes_libtcc=$(echo "$sha_libtcc_all" | sort -u)
 unique_hashes_libtcc1=$(echo "$sha_libtcc1_all" | sort -u)
 # Check if all hashes are the same for each relevant file
-echo "## DDC Summary: " >> $GITHUB_STEP_SUMMARY
+echo "## DDC Summary: tcc@${1}" >> $GITHUB_STEP_SUMMARY
 if [ $(echo "$unique_hashes_tcc" | wc -l) -ne 1 ]; then
     echo ":x: Error: All SHA256 hashes do not match for tcc!" >> $GITHUB_STEP_SUMMARY
     fail_on_exit=true
