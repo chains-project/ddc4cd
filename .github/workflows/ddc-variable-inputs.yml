@@ -11,6 +11,10 @@ on:
         type: string
         default: "f6385c05308f715bdd2c06336801193a21d69b50"
         description: "Commit hash from https://repo.or.cz/tinycc.git to use as input source in DDC"
+      nixpkgs-rev:
+        type: string
+        default: "07518c851b0f12351d7709274bbbd4ecc1f089c7"
+        description: "Nixpkgs hash"
 
 jobs:
   DDC:
@@ -22,9 +26,9 @@ jobs:
       - uses: actions/checkout@v4
       - uses: DeterminateSystems/nix-installer-action@v14
       - name: Setup tcc
-        run: nix-shell --pure --run "./.github/workflows/scripts/setup.sh $( [[ "${{ inputs.compromise-tcc }}" == 'true' ]] && echo "-c" )"
+        run: nix-shell --argstr pkgs-rev ${{ inputs.nixpkgs-rev }} --pure --run "./.github/workflows/scripts/setup.sh $( [[ "${{ inputs.compromise-tcc }}" == 'true' ]] && echo "-c" )"
       - name: Perform DDC
-        run: nix-shell --pure --run "./.github/workflows/scripts/ddc.sh -e ${{ matrix.os }} -h ${{ inputs.tcc-commit-hash }}"
+        run: nix-shell --argstr pkgs-rev ${{ inputs.nixpkgs-rev }} --pure --run "./.github/workflows/scripts/ddc.sh -e ${{ matrix.os }} -h ${{ inputs.tcc-commit-hash }}"
       - name: Upload build
         uses: actions/upload-artifact@v4
         with:
