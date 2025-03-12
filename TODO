@@ -1,6 +1,7 @@
 * Add support to release resulting binary ?
 * Make report better: add nixpkgs hash used
 * Document the code/workflow
+* Clean up repo from debug/testing
 
 Low priority:
 * Add version to build dirs to allow different version of the same compiler to be used
