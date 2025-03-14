@@ -59,7 +59,7 @@ jobs:
           path: build-artifacts
           pattern: build-*
       - name: Create .deb archive
-        run: ./.github/workflows/scripts/build-deb.sh -d $(realpath build-artifacts/build-ubuntu-24.04)
+        run: ./.github/workflows/scripts/build-deb.sh -d $(realpath build-artifacts/build-ubuntu-24.04/tcc-stage2)
       - name: Upload .deb
         uses: actions/upload-artifact@v4
         with:
