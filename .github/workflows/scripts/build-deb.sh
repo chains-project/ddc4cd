@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash
 # this script generates a .deb release of artifacts from ddc performed on tcc
 # version is supplied as a string in argument 1
 tcc_dir=""
