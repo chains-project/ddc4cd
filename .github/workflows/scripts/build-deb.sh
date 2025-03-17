@@ -46,7 +46,8 @@ while getopts ${OPTSTRING} opt; do
 done
 
 # temporary version handling
-version=$(sudo $tcc_dir/usr/local/bin/tcc -v | awk '{print $3}')
+chmod +x $tcc_dir/usr/local/bin/tcc
+version=$($tcc_dir/usr/local/bin/tcc -v | awk '{print $3}')
 
 # create necessary directories for the archive
 cd /tmp
