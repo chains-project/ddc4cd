@@ -26,7 +26,7 @@ read -r -d '' description << EOM
  GCC produces, and compiler bugs can have serious security consequences
  for your program.
 EOM
-depends="libc6 (>= 2.14)"
+depends="libc6 (>= 2.27)"
 
 # handle directory and version
 OPTSTRING="d:v:"
