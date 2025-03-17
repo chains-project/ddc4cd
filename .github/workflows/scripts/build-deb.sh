@@ -36,7 +36,7 @@ while getopts ${OPTSTRING} opt; do
       version=${OPTARG}
       ;;
     d)
-      tcc_dir=${OPTARG}
+      tcc_dir=$(realpath ${OPTARG})
       ;;
     ?)
       echo "Invalid option: -${OPTARG}."
