@@ -13,7 +13,7 @@ on:
         description: "Commit hash from https://repo.or.cz/tinycc.git to use as input source in DDC"
       nixpkgs-rev:
         type: string
-        default: "07518c851b0f12351d7709274bbbd4ecc1f089c7"
+        default: "a9eb3eed170fa916e0a8364e5227ee661af76fde"
         description: "Nixpkgs hash"
 
 jobs:
@@ -48,3 +48,25 @@ jobs:
           pattern: build-*
       - name: Create summary
         run: ./.github/workflows/scripts/summary.sh ${{ inputs.tcc-commit-hash }}
+  
+  Release:
+    runs-on: ubuntu-24.04
+    needs: [Results]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          path: build-artifacts
+          pattern: build-*
+      - name: debug
+        run: |
+          ls -la build-artifacts
+          ls -la build-artifacts/build-ubuntu-24.04
+      - name: Create .deb archive
+        run: ./.github/workflows/scripts/build-deb.sh -d build-artifacts/build-ubuntu-24.04/tcc-stage2
+      - name: Upload .deb
+        uses: actions/upload-artifact@v4
+        with:
+          if-no-files-found: error
+          path: /tmp/tcc-hardened.deb
+          name: tcc-hardened.deb
