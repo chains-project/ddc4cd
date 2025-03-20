@@ -4,11 +4,13 @@ let pkgs = import (builtins.fetchTarball {
     }) {};
     lib = pkgs.lib;
 in
-pkgs.mkShell { # change to with pkgs
+pkgs.mkShell {
   buildInputs = with pkgs; [ 
     stdenv
     clang
     wget
+    perl
+    texinfoInteractive
   ];
   shellHook = ''
     export STAGE1_CONF="--crtprefix=${lib.getLib pkgs.stdenv.cc.libc}/lib --sysincludepaths=${lib.getDev pkgs.stdenv.cc.libc}/include:{B}/include --libpaths={B}:${lib.getLib pkgs.stdenv.cc.libc}/lib"
