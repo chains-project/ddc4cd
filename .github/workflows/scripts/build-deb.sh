@@ -46,8 +46,8 @@ while getopts ${OPTSTRING} opt; do
 done
 
 # temporary version handling
-chmod +x $tcc_dir/usr/local/bin/tcc
-version=$($tcc_dir/usr/local/bin/tcc -v | awk '{print $3}')
+chmod +x $tcc_dir/usr/bin/tcc
+version=$($tcc_dir/usr/bin/tcc -v | awk '{print $3}')
 
 # create necessary directories for the archive
 cd /tmp
@@ -57,7 +57,7 @@ mkdir -p ./$package_name/DEBIAN
 
 # move the binaries to package dir and rename tcc main binary
 cp -r $tcc_dir/usr ./$package_name/
-mv ./$package_name/usr/local/bin/tcc ./$package_name/usr/local/bin/tcc-hardened
+mv ./$package_name/usr/bin/tcc ./$package_name/usr/bin/tcc-hardened
 
 # create control metadatafile in DEBIAN dir
 touch ./$package_name/DEBIAN/control
