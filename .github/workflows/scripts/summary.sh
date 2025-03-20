@@ -6,7 +6,7 @@ sha_libtcc_all=""
 sha_libtcc1_all=""
 fail_on_exit=false
 summary_output=""
-stage2_prefix="/usr/local"
+stage2_prefix="/usr"
 
 summarise_one_build () {
     
