@@ -69,13 +69,8 @@ jobs:
         run: sudo ./.github/workflows/scripts/deb-packaging/build-deb.sh -d build-artifacts/build-ubuntu-24.04/tcc-stage2 -v ${{ steps.ver.outputs.CURRENT_RELEASE }}
       - name: Create binary tarball
         run: |
-          echo "yes"
-      - name: Upload .deb
-        uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
-        with:
-          if-no-files-found: error
-          path: /tmp/tcc-hardened_${{ steps.ver.outputs.CURRENT_RELEASE }}.deb
-          name: tcc-hardened_${{ steps.ver.outputs.CURRENT_RELEASE }}.deb
+          mv ./build-artifacts/build-ubuntu-24.04/tcc-stage2/usr/bin/tcc ./build-artifacts/build-ubuntu-24.04/tcc-stage2/usr/bin/tcc-hardened
+          tar -czf /tmp/tcc-hardened_${{ steps.ver.outputs.CURRENT_RELEASE }}.tar.gz -C ./build-artifacts/build-ubuntu-24.04/tcc-stage2 .
       - name: Generate release notes
         run: |
           echo "# tcc-hardened ${{ steps.ver.outputs.CURRENT_RELEASE }}" > release.md
@@ -87,5 +82,6 @@ jobs:
         run: |
           gh release create ${{ steps.ver.outputs.CURRENT_RELEASE }} -F release.md
           gh release upload ${{ steps.ver.outputs.CURRENT_RELEASE }} /tmp/tcc-hardened_${{ steps.ver.outputs.CURRENT_RELEASE }}.deb
+          gh release upload ${{ steps.ver.outputs.CURRENT_RELEASE }} /tmp/tcc-hardened_${{ steps.ver.outputs.CURRENT_RELEASE }}.tar.gz
 
 
