@@ -50,7 +50,7 @@ done
 
 # temporary version handling
 chmod +x $tcc_dir/usr/bin/tcc
-version=$($tcc_dir/usr/bin/tcc -v | awk '{print $3}')+git$(echo $version_commit | cut -c1-8)
+version=$version_commit
 deb_name=tcc-hardened_${version}
 echo "CURRENT_RELEASE=$version" >> $GITHUB_OUTPUT
 # create necessary directories for the archive

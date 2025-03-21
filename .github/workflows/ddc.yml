@@ -62,18 +62,21 @@ jobs:
         run: |
           ls -la build-artifacts
           ls -la build-artifacts/build-ubuntu-24.04
+      - name: Generate version
+        id: ver
+        run: |
+          echo "CURRENT_RELEASE=$(./build-artifacts/build-ubuntu-24.04/usr/bin/tcc -v | awk '{print $3}')+git$(echo ${{ inputs.tcc-commit-hash }} | cut -c1-8)" >> $GITHUB_OUTPUT
       - name: Create .deb archive
-        id: deb
-        run: sudo ./.github/workflows/scripts/deb-packaging/build-deb.sh -d build-artifacts/build-ubuntu-24.04/tcc-stage2 -v ${{ inputs.tcc-commit-hash }}
+        run: sudo ./.github/workflows/scripts/deb-packaging/build-deb.sh -d build-artifacts/build-ubuntu-24.04/tcc-stage2 -v ${{ steps.ver.outputs.CURRENT_RELEASE }}
       - name: Upload .deb
         uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
         with:
           if-no-files-found: error
-          path: /tmp/tcc-hardened_${{ steps.deb.outputs.CURRENT_RELEASE }}.deb
-          name: tcc-hardened_${{ steps.deb.outputs.CURRENT_RELEASE }}.deb
+          path: /tmp/tcc-hardened_${{ steps.ver.outputs.CURRENT_RELEASE }}.deb
+          name: tcc-hardened_${{ steps.ver.outputs.CURRENT_RELEASE }}.deb
       - name: Create release
         run: |
-          gh release create ${{ steps.deb.outputs.CURRENT_RELEASE }} --notes "test"
-          gh release upload ${{ steps.deb.outputs.CURRENT_RELEASE }} /tmp/tcc-hardened_${{ steps.deb.outputs.CURRENT_RELEASE }}.deb
+          gh release create ${{ steps.ver.outputs.CURRENT_RELEASE }} --notes "test"
+          gh release upload ${{ steps.ver.outputs.CURRENT_RELEASE }} /tmp/tcc-hardened_${{ steps.ver.outputs.CURRENT_RELEASE }}.deb
 
 
