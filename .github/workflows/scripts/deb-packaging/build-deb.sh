@@ -1,6 +1,5 @@
 #!/bin/bash
 # this script generates a .deb release of artifacts from ddc performed on tcc
-# version is supplied as a string in argument 1
 tcc_dir=""
 copyright_file=$(dirname $(realpath "$0"))/copyright
 package_name="tcc-hardened"
