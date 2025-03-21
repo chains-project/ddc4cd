@@ -69,4 +69,4 @@ jobs:
         with:
           if-no-files-found: error
           path: /tmp/tcc-hardened*.deb
-          name: tcc-hardened.deb
+          name: tcc-hardened
