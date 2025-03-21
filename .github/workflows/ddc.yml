@@ -1,5 +1,5 @@
-name: DDC with variable inputs
-run-name: ${{ github.actor }} is testing out DDC with variable inputs 🚀
+name: Release tcc-hardened
+run-name: ${{ github.actor }} is releasing tcc using DDC 🚀
 on: 
   workflow_dispatch:
     inputs:
