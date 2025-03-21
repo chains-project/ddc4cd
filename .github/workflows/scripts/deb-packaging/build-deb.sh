@@ -6,7 +6,6 @@ copyright_file=$(dirname $(realpath "$0"))/copyright
 package_name="tcc-hardened"
 deb_name=""
 version=""
-version_commit=""
 architecture="amd64"
 maintainer="Ludvig Christensen <ludvigch@kth.se>"
 description_short="small ANSI C compiler"
@@ -36,7 +35,7 @@ OPTSTRING="d:v:"
 while getopts ${OPTSTRING} opt; do
   case ${opt} in
     v)
-      version_commit=${OPTARG}
+      version=${OPTARG}
       ;;
     d)
       tcc_dir=$(realpath ${OPTARG})
@@ -48,11 +47,9 @@ while getopts ${OPTSTRING} opt; do
   esac
 done
 
-# temporary version handling
-chmod +x $tcc_dir/usr/bin/tcc
-version=$version_commit
+# version handling
 deb_name=tcc-hardened_${version}
-echo "CURRENT_RELEASE=$version" >> $GITHUB_OUTPUT
+
 # create necessary directories for the archive
 cd /tmp
 rm -rf ./$deb_name
