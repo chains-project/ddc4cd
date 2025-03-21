@@ -68,7 +68,7 @@ jobs:
         id: ver
         run: |
           chmod +x ./build-artifacts/build-ubuntu-24.04/tcc-stage2/usr/bin/tcc
-          echo "CURRENT_RELEASE=$(./build-artifacts/build-ubuntu-24.04/tcc-stage2/usr/bin/tcc -v | awk '{print $3}')+git$(echo ${{ inputs.tcc-commit-hash }} | cut -c1-8)" >> $GITHUB_OUTPUT
+          echo "CURRENT_RELEASE=$(./build-artifacts/build-ubuntu-24.04/tcc-stage2/usr/bin/tcc -v | awk '{print $3}')+git.$(echo ${{ inputs.tcc-commit-hash }} | cut -c1-8)" >> $GITHUB_OUTPUT
       - name: Create .deb archive
         run: sudo ./.github/workflows/scripts/deb-packaging/build-deb.sh -d build-artifacts/build-ubuntu-24.04/tcc-stage2 -v ${{ steps.ver.outputs.CURRENT_RELEASE }}
       - name: Upload .deb
