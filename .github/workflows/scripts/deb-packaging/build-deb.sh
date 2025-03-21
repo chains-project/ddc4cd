@@ -2,8 +2,11 @@
 # this script generates a .deb release of artifacts from ddc performed on tcc
 # version is supplied as a string in argument 1
 tcc_dir=""
+copyright_file=$(dirname $(realpath "$0"))/copyright
 package_name="tcc-hardened"
+deb_name=""
 version=""
+version_commit=""
 architecture="amd64"
 maintainer="Ludvig Christensen <ludvigch@kth.se>"
 description_short="small ANSI C compiler"
@@ -33,7 +36,7 @@ OPTSTRING="d:v:"
 while getopts ${OPTSTRING} opt; do
   case ${opt} in
     v)
-      version=${OPTARG}
+      version_commit=${OPTARG}
       ;;
     d)
       tcc_dir=$(realpath ${OPTARG})
@@ -47,21 +50,23 @@ done
 
 # temporary version handling
 chmod +x $tcc_dir/usr/bin/tcc
-version=$($tcc_dir/usr/bin/tcc -v | awk '{print $3}')
-
+version=$($tcc_dir/usr/bin/tcc -v | awk '{print $3}')+git$(echo $version_commit | cut -c1-8)
+deb_name=tcc-hardened_${version}
 # create necessary directories for the archive
 cd /tmp
-rm -rf ./$package_name
-mkdir -p ./$package_name
-mkdir -p ./$package_name/DEBIAN
+rm -rf ./$deb_name
+mkdir -p ./$deb_name
+mkdir -p ./$deb_name/DEBIAN
 
-# move the binaries to package dir and rename tcc main binary
-cp -r $tcc_dir/usr ./$package_name/
-mv ./$package_name/usr/bin/tcc ./$package_name/usr/bin/tcc-hardened
+# move the binaries/files to package dir, rename tcc main binary and move tcc-doc to correct dir
+cp -r $tcc_dir/usr ./$deb_name/
+mv ./$deb_name/usr/bin/tcc ./$deb_name/usr/bin/tcc-hardened
+mkdir -p $deb_name/usr/share/doc/tcc-hardened/
+mv $deb_name/usr/share/doc/tcc-doc.html $deb_name/usr/share/doc/tcc-hardened/
 
 # create control metadatafile in DEBIAN dir
-touch ./$package_name/DEBIAN/control
-cat > ./$package_name/DEBIAN/control << EOM
+touch ./$deb_name/DEBIAN/control
+cat > ./$deb_name/DEBIAN/control << EOM
 Package: $package_name
 Version: $version
 Architecture: $architecture
@@ -72,9 +77,29 @@ Description: $description_short
  $description
 EOM
 
-# calculate sha256sums for all files
-# TODO
+# create simple changelog
+mkdir -p $deb_name/usr/share/doc/tcc-hardened/
+touch $deb_name/usr/share/doc/tcc-hardened/changelog.gz
+gzip -9n > $deb_name/usr/share/doc/tcc-hardened/changelog.gz << EOM
+$package_name $version UNRELEASED; urgency=low
+ 
+  * Initial release
+ 
+ -- Ludvig Christensen <ludvigch@kth.se>  $(date -R)
+EOM
+
+# compress info and man page
+gzip -9n $deb_name/usr/share/info/tcc-doc.info
+gzip -9n $deb_name/usr/share/man/man1/tcc.1
+
+# add copyright
+cp $copyright_file $deb_name/usr/share/doc/tcc-hardened/copyright
+
+# set correct file permissions
+chmod 755 $deb_name/usr/bin/*
+chmod 644 $deb_name/usr/share/doc/*
+chown -R root:root $deb_name
 
 # create the .deb
-rm -rf /tmp/$package_name.deb
-dpkg-deb --build ./$package_name
+rm -rf /tmp/$deb_name.deb
+dpkg-deb --build ./$deb_name
