@@ -6,7 +6,7 @@
 cwd=$(pwd)
 this_dir="$(dirname "$0")"
 source "$this_dir/config.sh"
-stage2_prefix="/usr/local"
+stage2_prefix="/usr"
 
 # default config
 ddc_env="none"
