@@ -73,14 +73,13 @@ jobs:
           tar -czf /tmp/tcc-hardened_${{ steps.ver.outputs.CURRENT_RELEASE }}.tar.gz -C ./build-artifacts/build-ubuntu-24.04/tcc-stage2 .
       - name: Generate release notes
         run: |
-          echo "# tcc-hardened ${{ steps.ver.outputs.CURRENT_RELEASE }}" > release.md
-          echo "- based on upstream: tcc@${{ inputs.tcc-commit-hash }}" >> release.md
+          echo "- based on upstream: tcc@[${{ inputs.tcc-commit-hash }}](https://repo.or.cz/tinycc.git/commit/${{ inputs.tcc-commit-hash }})" >> release.md
           echo "- built using nixpkgs hash: ${{ inputs.nixpkgs-rev }}" >> release.md
       - name: Create release
         env:
             GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create ${{ steps.ver.outputs.CURRENT_RELEASE }} -F release.md
+          gh release create ${{ steps.ver.outputs.CURRENT_RELEASE }} -F release.md -t "tcc-hardened ${{ steps.ver.outputs.CURRENT_RELEASE }}""
           gh release upload ${{ steps.ver.outputs.CURRENT_RELEASE }} /tmp/tcc-hardened_${{ steps.ver.outputs.CURRENT_RELEASE }}.deb
           gh release upload ${{ steps.ver.outputs.CURRENT_RELEASE }} /tmp/tcc-hardened_${{ steps.ver.outputs.CURRENT_RELEASE }}.tar.gz
 
