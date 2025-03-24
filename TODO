@@ -1,9 +1,7 @@
-* Make report better: add nixpkgs hash used
 * Document the code/workflow
 * Clean up repo from debug/testing
-* Binary tar.gz and .deb should be persistent in releases
-* Version handling
-  - .deb metadata and tcc-hardened binary should both contain the tcc source commit hash(short maybe 8 char) 
+* Make release notes prettier
+* Add TCC_COMMITHASH to builds so users more easily know which src the compiler is based on
 
 Low priority:
 * Add version to build dirs to allow different version of the same compiler to be used (can be achieved by changing nixpkgs hash)
