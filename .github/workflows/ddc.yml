@@ -66,11 +66,9 @@ jobs:
           chmod +x ./build-artifacts/build-ubuntu-24.04/tcc-stage2/usr/bin/tcc
           echo "CURRENT_RELEASE=$(./build-artifacts/build-ubuntu-24.04/tcc-stage2/usr/bin/tcc -v | awk '{print $3}')+git.$(echo ${{ inputs.tcc-commit-hash }} | cut -c1-8)" >> $GITHUB_OUTPUT
       - name: Create .deb archive
-        run: sudo ./.github/workflows/scripts/deb-packaging/build-deb.sh -d build-artifacts/build-ubuntu-24.04/tcc-stage2 -v ${{ steps.ver.outputs.CURRENT_RELEASE }}
+        run: sudo ./.github/workflows/scripts/release/create-deb.sh -d build-artifacts/build-ubuntu-24.04/tcc-stage2 -v ${{ steps.ver.outputs.CURRENT_RELEASE }}
       - name: Create binary tarball
-        run: |
-          mv ./build-artifacts/build-ubuntu-24.04/tcc-stage2/usr/bin/tcc ./build-artifacts/build-ubuntu-24.04/tcc-stage2/usr/bin/tcc-hardened
-          tar -czf /tmp/tcc-hardened_${{ steps.ver.outputs.CURRENT_RELEASE }}.tar.gz -C ./build-artifacts/build-ubuntu-24.04/tcc-stage2 .
+        run: ./.github/workflows/scripts/release/create-tar.sh -d build-artifacts/build-ubuntu-24.04/tcc-stage2 -v ${{ steps.ver.outputs.CURRENT_RELEASE }}
       - name: Generate release notes
         run: |
           echo "- based on upstream: tcc@[${{ inputs.tcc-commit-hash }}](https://repo.or.cz/tinycc.git/commit/${{ inputs.tcc-commit-hash }})" >> release.md
@@ -79,7 +77,7 @@ jobs:
         env:
             GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create ${{ steps.ver.outputs.CURRENT_RELEASE }} -F release.md -t "tcc-hardened ${{ steps.ver.outputs.CURRENT_RELEASE }}""
+          gh release create ${{ steps.ver.outputs.CURRENT_RELEASE }} -F release.md -t "tcc-hardened ${{ steps.ver.outputs.CURRENT_RELEASE }}"
           gh release upload ${{ steps.ver.outputs.CURRENT_RELEASE }} /tmp/tcc-hardened_${{ steps.ver.outputs.CURRENT_RELEASE }}.deb
           gh release upload ${{ steps.ver.outputs.CURRENT_RELEASE }} /tmp/tcc-hardened_${{ steps.ver.outputs.CURRENT_RELEASE }}.tar.gz
 
