@@ -55,11 +55,13 @@ rm -rf ./$deb_name
 mkdir -p ./$deb_name
 mkdir -p ./$deb_name/DEBIAN
 
-# move the binaries/files to package dir, rename tcc main binary and move tcc-doc to correct dir
+# move the binaries/files to package dir, rename tcc main binary+docs and move tcc-hardened-doc to correct dir
 cp -r $tcc_dir/usr ./$deb_name/
 mv ./$deb_name/usr/bin/tcc ./$deb_name/usr/bin/tcc-hardened
 mkdir -p $deb_name/usr/share/doc/tcc-hardened/
-mv $deb_name/usr/share/doc/tcc-doc.html $deb_name/usr/share/doc/tcc-hardened/
+mv $deb_name/usr/share/doc/tcc-doc.html $deb_name/usr/share/doc/tcc-hardened/tcc-hardened-doc.html
+mv $deb_name/usr/share/man/man1/tcc.1 $deb_name/usr/share/man/man1/tcc-hardened.1
+mv $deb_name/usr/share/info/tcc-doc.info $deb_name/usr/share/info/tcc-hardened-doc.info
 
 # create control metadatafile in DEBIAN dir
 touch ./$deb_name/DEBIAN/control
@@ -86,8 +88,8 @@ $package_name $version UNRELEASED; urgency=low
 EOM
 
 # compress info and man page
-gzip -9n $deb_name/usr/share/info/tcc-doc.info
-gzip -9n $deb_name/usr/share/man/man1/tcc.1
+gzip -9n $deb_name/usr/share/info/tcc-hardened-doc.info
+gzip -9n $deb_name/usr/share/man/man1/tcc-hardened.1
 
 # add copyright
 cp $copyright_file $deb_name/usr/share/doc/tcc-hardened/copyright
