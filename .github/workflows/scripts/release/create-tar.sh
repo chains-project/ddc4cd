@@ -19,8 +19,12 @@ while getopts ${OPTSTRING} opt; do
   esac
 done
 
-# rename main binary
+# rename main binary+docs
 mv $tcc_dir/usr/bin/tcc $tcc_dir/usr/bin/tcc-hardened
+mkdir -p $tcc_dir/usr/share/doc/tcc-hardened/
+mv $tcc_dir/usr/share/doc/tcc-doc.html $tcc_dir/usr/share/doc/tcc-hardened/tcc-hardened-doc.html
+mv $tcc_dir/usr/share/man/man1/tcc.1 $tcc_dir/usr/share/man/man1/tcc-hardened.1
+mv $tcc_dir/usr/share/info/tcc-doc.info $tcc_dir/usr/share/info/tcc-hardened-doc.info
 
 # set correct permissions
 find $tcc_dir -type f -exec chmod 644 {} +  # make all files: rw-r--r--
