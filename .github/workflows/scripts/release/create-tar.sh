@@ -27,4 +27,4 @@ find $tcc_dir -type f -exec chmod 644 {} +  # make all files: rw-r--r--
 find $tcc_dir -type d -exec chmod 755 {} +  # make all directories: rwxr-xr-x
 chmod 755 $tcc_dir/usr/bin/tcc-hardened     # make tcc-hardened executable
 
-tar --no-same-owner -czf /tmp/tcc-hardened_$version.tar.gz -C $tcc_dir usr
+tar -czf /tmp/tcc-hardened_$version.tar.gz -C $tcc_dir usr
