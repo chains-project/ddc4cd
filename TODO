@@ -2,6 +2,7 @@
 * Clean up repo from debug/testing
 * Make release notes prettier
 * Add TCC_COMMITHASH to builds so users more easily know which src the compiler is based on
+* add lintian to workflow for static analysis of .deb
 
 Low priority:
 * Add version to build dirs to allow different version of the same compiler to be used (can be achieved by changing nixpkgs hash)
