@@ -3,6 +3,7 @@
 * Make release notes prettier
   - Add version of each ancestor compiler to release notes
 * Add mac compatibility
+* Add docker for testing .deb and tarball
 
 Low priority:
 * Add version to build dirs to allow different version of the same compiler to be used (can be achieved by changing nixpkgs hash)
