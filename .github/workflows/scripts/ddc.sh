@@ -41,7 +41,7 @@ Untrusted src dir: ${src_a_dir}
 Trusted compilers: ${trusted_compilers}
 EOF
 # self-regeneration of untrusted compiler
-$cwd/.github/workflows/scripts/double-compile.sh ${build_dir}/gcc-tcc/bin/tcc $src_a_dir
+#$cwd/.github/workflows/scripts/double-compile.sh ${build_dir}/gcc-tcc/bin/tcc $src_a_dir
 # ddc process
 for trusted_compiler in ${trusted_compilers}; do
   $cwd/.github/workflows/scripts/double-compile.sh $trusted_compiler $src_a_dir
