@@ -4,10 +4,10 @@ let pkgs = import (builtins.fetchTarball {
     }) {};
     lib = pkgs.lib;
     # Select cross compilation tools if on macOS
-    crossPkgs = if pkgs.stdenv.isDarwin then pkgs.pkgsCross.gnu64 else pkgs;
+    #crossPkgs = if pkgs.stdenv.isDarwin then pkgs.pkgsCross.gnu64 else pkgs;
 in
 pkgs.mkShell { # change to with pkgs
-  buildInputs = with crossPkgs; [ 
+  buildInputs = with pkgs; [ 
     stdenv
     clang
     wget
@@ -16,7 +16,7 @@ pkgs.mkShell { # change to with pkgs
   ];
   shellHook = ''
     export STAGE1_CONF="--enable-cross"
-    export STAGE2_CONF="--crtprefix=${lib.getLib crossPkgs.stdenv.cc.libc}/lib --sysincludepaths=${lib.getDev crossPkgs.stdenv.cc.libc}/include:{B}/include --libpaths={B}:${lib.getLib crossPkgs.stdenv.cc.libc}/lib --elfinterp=${lib.getLib crossPkgs.stdenv.cc.libc}/lib64/ld-linux-x86-64.so.2"
+    export STAGE2_CONF="--crtprefix=${lib.getLib pkgs.stdenv.cc.libc}/lib --sysincludepaths=${lib.getDev pkgs.stdenv.cc.libc}/include:{B}/include --libpaths={B}:${lib.getLib pkgs.stdenv.cc.libc}/lib --elfinterp=${lib.getLib pkgs.stdenv.cc.libc}/lib64/ld-linux-x86-64.so.2"
     if [[ "$OSTYPE" == "darwin"* ]]; then
       export SSL_CERT_FILE=/etc/ssl/cert.pem
     else
