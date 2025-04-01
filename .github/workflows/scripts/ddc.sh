@@ -50,12 +50,9 @@ done
 log_file=/tmp/build/${ddc_env}.txt
 echo "***********${ddc_env}***********" > ${log_file}
 echo "___________BINARIES___________" >> ${log_file}
-sha256sum ${build_dir}/tcc-stage1${prefix}/bin/tcc >> ${log_file}
 sha256sum ${build_dir}/*-stage2${stage2_prefix}/bin/tcc >> ${log_file}
 echo "___________LIBTCC___________" >> ${log_file}
-sha256sum ${build_dir}/tcc-stage1${prefix}/lib/libtcc.a >> ${log_file}
 sha256sum ${build_dir}/*-stage2${stage2_prefix}/lib/libtcc.a >> ${log_file}
 echo "___________LIBTCC1___________" >> ${log_file}
-sha256sum ${build_dir}/tcc-stage1${prefix}/lib/tcc/libtcc1.a >> ${log_file}
 sha256sum ${build_dir}/*-stage2${stage2_prefix}/lib/tcc/libtcc1.a >> ${log_file}
 cat ${log_file}
