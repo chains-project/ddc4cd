@@ -30,7 +30,7 @@ make cross-x86_64
 make install DESTDIR=${stage1_dir}
 ln -sfT ${stage1_dir}${prefix} ${ln_location}
 make clean
-./configure --targetos=Linux --cc="${stage1_dir}${prefix}/bin/x86_64-tcc" --extra-ldflags=${extra_flags}
+./configure --targetos=Linux --cc="${stage1_dir}${prefix}/bin/x86_64-tcc" --extra-ldflags=${extra_flags} $STAGE2_CONF
 ./configure -h || true
 cat config.mak || true
 make
