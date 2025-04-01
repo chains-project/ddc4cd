@@ -22,7 +22,7 @@ EOF
 
 cd $source_dir
 make clean
-./configure --targetos=Linux --cc=${initial_compiler} --prefix=${prefix} --extra-ldflags=${extra_flags} $STAGE1_CONF
+./configure --cc=${initial_compiler} --prefix=${prefix} --extra-ldflags=${extra_flags} $STAGE1_CONF
 ./configure -h || true
 cat config.mak || true
 make cross-x86_64
