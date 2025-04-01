@@ -20,7 +20,7 @@ jobs:
   DDC:
     strategy:
         matrix:
-            os: [macos-latest]
+            os: [macos-14-large]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
