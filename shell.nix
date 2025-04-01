@@ -15,8 +15,16 @@ pkgs.mkShell { # change to with pkgs
     cacert
   ];
   shellHook = ''
+    read -r -d \'\' config-extra.mak << EOF
+    ROOT-x86_64 = ${lib.getLib crossPkgs.stdenv.cc.libc}
+    CRT-x86_64 = {R}/lib
+    LIB-x86_64 = {B}:{R}/lib
+    INC-x86_64 = {B}/include:{R}/include
+    DEF-x86_64 += -D__linux__
+    EOF
+
     export STAGE1_CONF="--enable-cross --crtprefix=${lib.getLib pkgs.stdenv.cc.libc}/lib --sysincludepaths=${lib.getDev pkgs.stdenv.cc.libc}/include:{B}/include --libpaths={B}:${lib.getLib pkgs.stdenv.cc.libc}/lib --elfinterp=${lib.getLib pkgs.stdenv.cc.libc}/lib64/ld-linux-x86-64.so.2"
-    export STAGE2_CONF="--crtprefix=${lib.getLib crossPkgs.stdenv.cc.libc}/lib --sysincludepaths=${lib.getDev crossPkgs.stdenv.cc.libc}/include:{B}/include --libpaths={B}:${lib.getLib crossPkgs.stdenv.cc.libc}/lib --elfinterp=${lib.getLib crossPkgs.stdenv.cc.libc}/lib64/ld-linux-x86-64.so.2"
+    export STAGE2_CONF=""
     if [[ "$OSTYPE" == "darwin"* ]]; then
       export SSL_CERT_FILE=/etc/ssl/cert.pem
     else

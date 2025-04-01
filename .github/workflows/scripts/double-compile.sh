@@ -22,12 +22,14 @@ EOF
 
 cd $source_dir
 make clean
+mv $this_dir/config-extra.mak .
 ./configure --cc=${initial_compiler} --prefix=${prefix} --extra-ldflags=${extra_flags} $STAGE1_CONF
 ./configure -h || true
 cat config.mak || true
 make cross-x86_64
 #objcopy -D libtcc.a
 make install DESTDIR=${stage1_dir}
+rm config-extra.mak
 ln -sfT ${stage1_dir}${prefix} ${ln_location}
 make clean
 ./configure --targetos=Linux --cc="${stage1_dir}${prefix}/bin/x86_64-tcc" --extra-ldflags=${extra_flags} $STAGE2_CONF
