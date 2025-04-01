@@ -13,7 +13,6 @@ pkgs.mkShell { # change to with pkgs
     wget
     binutils
     cacert
-    xcodes
   ];
   shellHook = ''
     export STAGE1_CONF="--enable-cross --crtprefix=${lib.getLib pkgs.stdenv.cc.libc}/lib --sysincludepaths=${lib.getDev pkgs.stdenv.cc.libc}/include:{B}/include --libpaths={B}:${lib.getLib pkgs.stdenv.cc.libc}/lib --elfinterp=${lib.getLib pkgs.stdenv.cc.libc}/lib64/ld-linux-x86-64.so.2"
