@@ -22,6 +22,8 @@ pkgs.mkShell { # change to with pkgs
     echo "INC-x86_64 = {B}/include:{R}/include" >> config-extra.mak
     echo "DEF-x86_64 += -D__linux__" >> config-extra.mak
     export EXTRA_CONFIG="$(realpath config-extra.mak)"
+    cat config-extra.mak
+    echo $EXTRA_CONFIG
 
     export STAGE1_CONF="--enable-cross --crtprefix=${lib.getLib pkgs.stdenv.cc.libc}/lib --sysincludepaths=${lib.getDev pkgs.stdenv.cc.libc}/include:{B}/include --libpaths={B}:${lib.getLib pkgs.stdenv.cc.libc}/lib --elfinterp=${lib.getLib pkgs.stdenv.cc.libc}/lib64/ld-linux-x86-64.so.2"
     export STAGE2_CONF=""

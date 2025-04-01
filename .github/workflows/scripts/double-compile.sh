@@ -22,7 +22,7 @@ EOF
 
 cd $source_dir
 make clean
-cp $CONFIG_EXTRA .
+cp $EXTRA_CONFIG .
 ./configure --cc=${initial_compiler} --prefix=${prefix} --extra-ldflags=${extra_flags} $STAGE1_CONF
 ./configure -h || true
 cat config.mak || true
