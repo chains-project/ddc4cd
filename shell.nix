@@ -15,7 +15,7 @@ pkgs.mkShell { # change to with pkgs
     cacert
   ];
   shellHook = ''
-    read -r -d \'\' /tmp/config-extra.mak << EOF
+    read -r -d \'\' $(realpath /tmp)/config-extra.mak << EOF
     ROOT-x86_64 = ${lib.getLib crossPkgs.stdenv.cc.libc}
     CRT-x86_64 = {R}/lib
     LIB-x86_64 = {B}:{R}/lib
