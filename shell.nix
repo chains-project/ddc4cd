@@ -15,13 +15,13 @@ pkgs.mkShell { # change to with pkgs
     cacert
   ];
   shellHook = ''
-    read -r -d \'\' $(realpath /tmp)/config-extra.mak << EOF
-    ROOT-x86_64 = ${lib.getLib crossPkgs.stdenv.cc.libc}
-    CRT-x86_64 = {R}/lib
-    LIB-x86_64 = {B}:{R}/lib
-    INC-x86_64 = {B}/include:{R}/include
-    DEF-x86_64 += -D__linux__
-    EOF
+    touch config-extra.mak
+    echo "ROOT-x86_64 = ${lib.getLib crossPkgs.stdenv.cc.libc}" > config-extra.mak
+    echo "CRT-x86_64 = {R}/lib" >> config-extra.mak
+    echo "LIB-x86_64 = {B}:{R}/lib" >> config-extra.mak
+    echo "INC-x86_64 = {B}/include:{R}/include" >> config-extra.mak
+    echo "DEF-x86_64 += -D__linux__" >> config-extra.mak
+    export EXTRA_CONFIG="$(realpath config-extra.mak)"
 
     export STAGE1_CONF="--enable-cross --crtprefix=${lib.getLib pkgs.stdenv.cc.libc}/lib --sysincludepaths=${lib.getDev pkgs.stdenv.cc.libc}/include:{B}/include --libpaths={B}:${lib.getLib pkgs.stdenv.cc.libc}/lib --elfinterp=${lib.getLib pkgs.stdenv.cc.libc}/lib64/ld-linux-x86-64.so.2"
     export STAGE2_CONF=""
