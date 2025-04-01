@@ -22,8 +22,8 @@ EOF
 
 cd $source_dir
 make clean
-./configure --cc=${initial_compiler} --prefix=${prefix} --extra-ldflags=${extra_flags} $STAGE1_CONF
-make
+./configure --target-os=Linux --cc=${initial_compiler} --prefix=${prefix} --extra-ldflags=${extra_flags} $STAGE1_CONF
+make cross-x86_64
 objcopy -D libtcc.a
 make install DESTDIR=${stage1_dir}
 ln -sfT ${stage1_dir}${prefix} ${ln_location}
