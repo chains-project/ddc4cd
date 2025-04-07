@@ -19,7 +19,7 @@ pkgs.mkShell { # change to with pkgs
     echo "ROOT-x86_64 = ${lib.getLib crossPkgs.stdenv.cc.libc}" > config-extra.mak
     echo "CRT-x86_64 = {R}/lib" >> config-extra.mak
     echo "LIB-x86_64 = {B}:{R}/lib" >> config-extra.mak
-    echo "INC-x86_64 = {B}/include:{R}/include" >> config-extra.mak
+    echo "INC-x86_64 = {B}/include:${lib.getDev crossPkgs.stdenv.cc.libc}/include" >> config-extra.mak
     echo "DEF-x86_64 += -D__linux__" >> config-extra.mak
     export EXTRA_CONFIG="$(realpath config-extra.mak)"
     cat config-extra.mak
