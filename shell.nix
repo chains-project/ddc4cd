@@ -13,6 +13,7 @@ pkgs.mkShell { # change to with pkgs
     wget
     binutils
     cacert
+    darwin.xcode
   ];
   shellHook = ''
     touch config-extra.mak
