@@ -1,8 +1,9 @@
 { pkgs-rev ? "07518c851b0f12351d7709274bbbd4ecc1f089c7" }:
 let pkgs = import (builtins.fetchTarball {
       url = "https://github.com/NixOS/nixpkgs/archive/${pkgs-rev}.tar.gz";
+    }) {
       config.allowUnfree = true;
-    }) {};
+    };
     lib = pkgs.lib;
     # Select cross compilation tools if on macOS
     crossPkgs = if pkgs.stdenv.isDarwin then pkgs.pkgsCross.gnu64 else pkgs;
