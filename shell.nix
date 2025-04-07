@@ -1,4 +1,4 @@
-{ pkgs-rev ? "07518c851b0f12351d7709274bbbd4ecc1f089c7" }:
+{ pkgs-rev ? "a9eb3eed170fa916e0a8364e5227ee661af76fde" }:
 let pkgs = import (builtins.fetchTarball {
       url = "https://github.com/NixOS/nixpkgs/archive/${pkgs-rev}.tar.gz";
     }) {};
