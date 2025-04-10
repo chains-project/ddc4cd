@@ -5,3 +5,5 @@ stage2/
 tinycc-f6385c0/
 tinycc-f6385c0-gp/
 build/
+config-extra.mak
+

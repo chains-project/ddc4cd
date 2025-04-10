@@ -1,0 +1,77 @@
+diff --git a/Makefile b/Makefile
+index 2a7b774b..9df68db0 100644
+--- a/Makefile
++++ b/Makefile
+@@ -156,8 +156,8 @@ endif
+ 
+ # --------------------------------------------
+ 
+-T = $(or $(CROSS_TARGET),$(NATIVE_TARGET),unknown)
+-X = $(if $(CROSS_TARGET),$(CROSS_TARGET)-)
++T = $(or $(TCROSS_TARGET),$(NATIVE_TARGET),unknown)
++X = $(if $(TCROSS_TARGET),$(TCROSS_TARGET)-)
+ 
+ DEFINES += $(DEF-$T)
+ DEFINES += $(if $(ROOT-$T),-DCONFIG_SYSROOT="\"$(ROOT-$T)\"")
+@@ -253,7 +253,7 @@ endif
+ 
+ # convert "include/tccdefs.h" to "tccdefs_.h"
+ %_.h : include/%.h conftest.c
+-	$S$(CC) -DC2STR $(filter %.c,$^) -o c2str.exe && ./c2str.exe $< $@
++	TCC_LIBRARY_PATH="/usr/lib/tcc:/usr/lib" tcc -static -DC2STR $(filter %.c,$^) -o c2str.exe && ./c2str.exe $< $@
+ 
+ # target specific object rule
+ $(X)%.o : %.c $(LIBTCC_INC)
+@@ -275,9 +275,9 @@ tcc$(EXESUF): tcc.o $(LIBTCC)
+ # to the same goals and only remakes it once, but that doesn't work over
+ # sub-makes like in this target)
+ %-tcc$(EXESUF): $(TCCDEFS_H) FORCE
+-	@$(MAKE) --no-print-directory $@ CROSS_TARGET=$* ONE_SOURCE=$(or $(ONE_SOURCE),yes)
++	@$(MAKE) --no-print-directory $@ TCROSS_TARGET=$* ONE_SOURCE=$(or $(ONE_SOURCE),yes)
+ 
+-$(CROSS_TARGET)-tcc$(EXESUF): $(TCC_FILES)
++$(TCROSS_TARGET)-tcc$(EXESUF): $(TCC_FILES)
+ 	$S$(CC) -o $@ $^ $(LIBS) $(LDFLAGS)
+ 
+ # profiling version
+@@ -319,7 +319,7 @@ libtcc1.a : tcc$(EXESUF) FORCE
+ 
+ # Cross libtcc1.a
+ %-libtcc1.a : %-tcc$(EXESUF) FORCE
+-	@$(MAKE) -C lib CROSS_TARGET=$*
++	@$(MAKE) -C lib TCROSS_TARGET=$*
+ 
+ .PRECIOUS: %-libtcc1.a
+ FORCE:
+diff --git a/lib/Makefile b/lib/Makefile
+index 6524d829..4a183af1 100644
+--- a/lib/Makefile
++++ b/lib/Makefile
+@@ -3,19 +3,23 @@
+ #
+ 
+ TOP = ..
++
++# cross-compile, otherwise XTOP=TOP
++XTOP ?= ..
++
+ include $(TOP)/Makefile
+ VPATH = $(TOPSRC)/lib $(TOPSRC)/win32/lib
+-T = $(or $(CROSS_TARGET),$(NATIVE_TARGET),unknown)
+-X = $(if $(CROSS_TARGET),$(CROSS_TARGET)-)
++T = $(or $(TCROSS_TARGET),$(NATIVE_TARGET),unknown)
++X = $(if $(TCROSS_TARGET),$(TCROSS_TARGET)-)
+ XCFG = $(or $(findstring -win,$T),-unx)
+ S = $(if $(findstring yes,$(SILENT)),@$(info * $@))
+ 
+ TCC = $(TOP)/$(X)tcc$(EXESUF)
+-XTCC ?= $(TOP)/$(X)tcc$(EXESUF)
++XTCC ?= $(XTOP)/$(X)tcc$(EXESUF)
+ XCC = $(XTCC)
+ XAR = $(XTCC) -ar
+ XFLAGS-unx = -B$(TOPSRC)
+-XFLAGS-win = -B$(TOPSRC)/win32 -I$(TOPSRC)/include
++XFLAGS-win = -B$(TOPSRC)/win32 -I$(TOPSRC)/include -I$(TOPSRC)/win32/include/ -I$(TOPSRC)/win32/include/winapi
+ XFLAGS = $(XFLAGS$(XCFG))
+ BFLAGS = -bt
+ 
