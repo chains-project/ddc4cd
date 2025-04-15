@@ -1,0 +1,23 @@
+name: Release tcc-hardened
+run-name: ${{ github.actor }} is releasing tcc using DDC 🚀
+
+on:
+  workflow_call:
+    inputs:
+      tcc-commit-hash:
+        type: string
+        default: "f6385c05308f715bdd2c06336801193a21d69b50"
+        description: "Commit hash from https://repo.or.cz/tinycc.git to use as input source in DDC"
+      nixpkgs-rev:
+        type: string
+        default: "a9eb3eed170fa916e0a8364e5227ee661af76fde"
+        description: "Nixpkgs hash"
+
+
+jobs:
+  call-core-ddc:
+    uses: ./.github/workflows/ddc.yml
+    with:
+      compromise-tcc: false # 🔒 Hardcoded for external calls
+      tcc-commit-hash: ${{ inputs.tcc-commit-hash }}
+      nixpkgs-rev: ${{ inputs.nixpkgs-rev }}
