@@ -27,11 +27,12 @@ jobs:
         with:
           repository: chains-project/ddc4cd
           path: ddc4cd
-      - run: cd ./ddc4cd
       - uses: DeterminateSystems/nix-installer-action@e50d5f73bfe71c2dd0aa4218de8f4afa59f8f81d # v16
       - name: Setup tcc
+        working-directory: ./ddc4cd
         run: nix-shell --argstr pkgs-rev ${{ inputs.nixpkgs-rev }} --pure --run "./.github/workflows/scripts/setup.sh $( [[ "${{ inputs.compromise-tcc }}" == 'true' ]] && echo "-c" )"
       - name: Perform DDC
+        working-directory: ./ddc4cd
         run: nix-shell --argstr pkgs-rev ${{ inputs.nixpkgs-rev }} --pure --run "./.github/workflows/scripts/ddc.sh -e ${{ matrix.os }} -h ${{ inputs.tcc-commit-hash }}"
       - name: Upload build
         uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
@@ -48,13 +49,13 @@ jobs:
         with:
           repository: chains-project/ddc4cd
           path: ddc4cd
-      - run: cd ./ddc4cd
       - name: Download build artifacts
         uses: actions/download-artifact@b14cf4c92620c250e1c074ab0a5800e37df86765 # v4.2.0
         with:
-          path: build-artifacts
+          path: ddc4cd/build-artifacts
           pattern: build-*
       - name: Create summary
+        working-directory: ./ddc4cd
         run: ./.github/workflows/scripts/summary.sh ${{ inputs.tcc-commit-hash }}
   
   Release:
@@ -67,10 +68,9 @@ jobs:
         with:
           repository: chains-project/ddc4cd
           path: ddc4cd
-      - run: cd ./ddc4cd
       - uses: actions/download-artifact@b14cf4c92620c250e1c074ab0a5800e37df86765 # v4.2.0
         with:
-          path: build-artifacts
+          path: ddc4cd/build-artifacts
           pattern: build-*
       - name: Generate version
         id: ver
@@ -78,8 +78,10 @@ jobs:
           chmod +x ./build-artifacts/build-ubuntu-24.04/tcc-stage2/usr/bin/tcc
           echo "CURRENT_RELEASE=$(./build-artifacts/build-ubuntu-24.04/tcc-stage2/usr/bin/tcc -v | awk '{print $3}')+git.$(echo ${{ inputs.tcc-commit-hash }} | cut -c1-8)" >> $GITHUB_OUTPUT
       - name: Create .deb archive
+        working-directory: ./ddc4cd
         run: sudo ./.github/workflows/scripts/release/create-deb.sh -d build-artifacts/build-ubuntu-24.04/tcc-stage2 -v ${{ steps.ver.outputs.CURRENT_RELEASE }}
       - name: Create binary tarball
+        working-directory: ./ddc4cd
         run: ./.github/workflows/scripts/release/create-tar.sh -d build-artifacts/build-ubuntu-24.04/tcc-stage2 -v ${{ steps.ver.outputs.CURRENT_RELEASE }}
       - name: Generate release notes
         run: |
