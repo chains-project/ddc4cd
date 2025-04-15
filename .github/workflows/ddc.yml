@@ -29,9 +29,9 @@ jobs:
           path: ddc4cd
       - uses: DeterminateSystems/nix-installer-action@e50d5f73bfe71c2dd0aa4218de8f4afa59f8f81d # v16
       - name: Setup tcc
-        run: nix-shell --argstr pkgs-rev ${{ inputs.nixpkgs-rev }} --pure --run "./ddc4cd/.github/workflows/scripts/setup.sh $( [[ "${{ inputs.compromise-tcc }}" == 'true' ]] && echo "-c" )"
+        run: nix-shell --argstr pkgs-rev ${{ inputs.nixpkgs-rev }} --pure --run "./ddc4cd/.github/workflows/scripts/setup.sh $( [[ "${{ inputs.compromise-tcc }}" == 'true' ]] && echo "-c" )" ./ddc4cd/shell.nix
       - name: Perform DDC
-        run: nix-shell --argstr pkgs-rev ${{ inputs.nixpkgs-rev }} --pure --run "./ddc4cd/.github/workflows/scripts/ddc.sh -e ${{ matrix.os }} -h ${{ inputs.tcc-commit-hash }}"
+        run: nix-shell --argstr pkgs-rev ${{ inputs.nixpkgs-rev }} --pure --run "./ddc4cd/.github/workflows/scripts/ddc.sh -e ${{ matrix.os }} -h ${{ inputs.tcc-commit-hash }}" ./ddc4cd/shell.nix
       - name: Upload build
         uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
         with:
