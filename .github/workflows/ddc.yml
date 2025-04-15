@@ -1,7 +1,7 @@
 name: Release tcc-hardened
 run-name: ${{ github.actor }} is releasing tcc using DDC 🚀
 on: 
-  workflow_dispatch:
+  workflow_call:
     inputs:
       compromise-tcc:
         type: boolean
