@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 # Fetch the latest release of tcc-hardened
-deb_url=$(curl -s "https://api.github.com/repos/chains-project/ddc4cd/releases/latest" | \
+deb_url=$(curl -s "https://api.github.com/repos/chains-project/tcc-hardened/releases/latest" | \
           grep "browser_download_url.*\.deb" | cut -d '"' -f 4)
 
 # Check if deb_url was found
