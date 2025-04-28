@@ -32,10 +32,10 @@ jobs:
           init: none
       - name: Setup tcc
         working-directory: ./ddc4cd
-        run: nix-shell --argstr pkgs-rev ${{ inputs.nixpkgs-rev }} --pure --run "./.github/workflows/scripts/setup.sh $( [[ "${{ inputs.compromise-tcc }}" == 'true' ]] && echo "-c" )"
+        run: sudo nix-shell --argstr pkgs-rev ${{ inputs.nixpkgs-rev }} --pure --run "./.github/workflows/scripts/setup.sh $( [[ "${{ inputs.compromise-tcc }}" == 'true' ]] && echo "-c" )"
       - name: Perform DDC
         working-directory: ./ddc4cd
-        run: nix-shell --argstr pkgs-rev ${{ inputs.nixpkgs-rev }} --pure --run "./.github/workflows/scripts/ddc.sh -e ${{ matrix.os }} -h ${{ inputs.tcc-commit-hash }}"
+        run: sudo nix-shell --argstr pkgs-rev ${{ inputs.nixpkgs-rev }} --pure --run "./.github/workflows/scripts/ddc.sh -e ${{ matrix.os }} -h ${{ inputs.tcc-commit-hash }}"
       - name: Upload build
         uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
         with:
