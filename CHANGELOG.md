@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.2](https://github.com/chains-project/ddc4cd/compare/v0.2.1...v0.2.2) (2025-05-02)
+
+
+### Bug Fixes
+
+* use only upstream provided binary compilers as GP ([#22](https://github.com/chains-project/ddc4cd/issues/22)) ([c55b6d6](https://github.com/chains-project/ddc4cd/commit/c55b6d652e2e833a1c170d91fd456d79c8149898))
+
 ## [0.2.1](https://github.com/chains-project/ddc4cd/compare/v0.2.0...v0.2.1) (2025-05-02)
 
 
