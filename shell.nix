@@ -11,6 +11,7 @@ pkgs.mkShell {
     wget
     perl
     texinfoInteractive
+    tinycc
   ];
   shellHook = ''
     export STAGE1_CONF="--crtprefix=${lib.getLib pkgs.stdenv.cc.libc}/lib --sysincludepaths=${lib.getDev pkgs.stdenv.cc.libc}/include:{B}/include --libpaths={B}:${lib.getLib pkgs.stdenv.cc.libc}/lib"
