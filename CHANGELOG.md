@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/chains-project/ddc4cd/compare/v0.2.2...v0.3.0) (2025-05-05)
+
+
+### Features
+
+* make release optional for easier testing ([#25](https://github.com/chains-project/ddc4cd/issues/25)) ([561cb88](https://github.com/chains-project/ddc4cd/commit/561cb88d374a6ad3fa750f5dc8a0d955a49da24e))
+
 ## [0.2.2](https://github.com/chains-project/ddc4cd/compare/v0.2.1...v0.2.2) (2025-05-02)
 
 
