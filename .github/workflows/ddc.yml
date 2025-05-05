@@ -38,8 +38,6 @@ jobs:
       - name: Perform DDC
         working-directory: ./ddc4cd
         run: nix-shell --argstr pkgs-rev ${{ inputs.nixpkgs-rev }} --pure --run "./.github/workflows/scripts/ddc.sh -e ${{ matrix.os }} -h ${{ inputs.tcc-commit-hash }}"
-      - name: Record build OS & Kernel
-        run: cat /proc/version > /tmp/build/build-metadata.txt
       - name: Upload build
         uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
         with:
