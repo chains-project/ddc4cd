@@ -20,9 +20,6 @@ Stage1_dir: ${stage1_dir}
 Stage2_dir: ${stage2_dir}
 EOF
 
-echo -e "$(basename $initial_compiler)\n" >> ${build_dir}/compilers.txt
-echo -e "$($initial_compiler -v 2>&1)\n\n" >> ${build_dir}/compilers.txt
-
 cd $source_dir
 make clean
 ./configure --cc=${initial_compiler} --prefix=${prefix} --extra-ldflags=${extra_flags} $STAGE1_CONF
