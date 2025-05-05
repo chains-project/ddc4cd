@@ -15,6 +15,10 @@ on:
         type: string
         default: "a9eb3eed170fa916e0a8364e5227ee661af76fde"
         description: "Nixpkgs hash"
+      release:
+        type: boolean
+        default: false
+        description: "Publish release?"
 
 jobs:
   DDC:
@@ -59,6 +63,7 @@ jobs:
         run: ./.github/workflows/scripts/summary.sh ${{ inputs.tcc-commit-hash }}
   
   Release:
+    if: ${{ inputs.release }}
     runs-on: ubuntu-24.04
     needs: [Results]
     permissions:
