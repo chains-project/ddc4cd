@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.2](https://github.com/chains-project/ddc4cd/compare/v0.3.1...v0.3.2) (2025-05-05)
+
+
+### Bug Fixes
+
+* escape md special chars ([#31](https://github.com/chains-project/ddc4cd/issues/31)) ([44bc5a4](https://github.com/chains-project/ddc4cd/commit/44bc5a42bd5d2d9f11e5ff4242ba20cfe59ef95e))
+
 ## [0.3.1](https://github.com/chains-project/ddc4cd/compare/v0.3.0...v0.3.1) (2025-05-05)
 
 
