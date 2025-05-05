@@ -11,6 +11,7 @@ stage2_prefix="/usr"
 summarise_one_build () {
     
     summary_output+="### DDC results ${1}\n" 
+    summary_output+="**Build OS:** $(cat "$1/build-metadata.txt")\n"
     summary_output+="| tcc | sha256 |\n"
     summary_output+="| :--- | :--- |\n"
 
