@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1](https://github.com/chains-project/ddc4cd/compare/v0.3.0...v0.3.1) (2025-05-05)
+
+
+### Bug Fixes
+
+* Revert "chore: Revert "Build metadata ([#27](https://github.com/chains-project/ddc4cd/issues/27))" ([#28](https://github.com/chains-project/ddc4cd/issues/28))" ([#29](https://github.com/chains-project/ddc4cd/issues/29)) ([1d6b751](https://github.com/chains-project/ddc4cd/commit/1d6b7516c07f6d14cf09aca5ea4a9984f2e5b067))
+
 ## [0.3.0](https://github.com/chains-project/ddc4cd/compare/v0.2.2...v0.3.0) (2025-05-05)
 
 
