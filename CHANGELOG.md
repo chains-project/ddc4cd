@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.3](https://github.com/chains-project/ddc4cd/compare/v0.3.2...v0.3.3) (2025-05-06)
+
+
+### Bug Fixes
+
+* better compiler version data in summary ([#33](https://github.com/chains-project/ddc4cd/issues/33)) ([244b199](https://github.com/chains-project/ddc4cd/commit/244b19995da5cb2ac1abd17b6c6fe8ddebf26d93))
+
 ## [0.3.2](https://github.com/chains-project/ddc4cd/compare/v0.3.1...v0.3.2) (2025-05-05)
 
 
