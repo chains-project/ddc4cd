@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.5](https://github.com/chains-project/ddc4cd/compare/v0.3.4...v0.3.5) (2025-05-06)
+
+
+### Bug Fixes
+
+* prettier summary and run permalink ([#37](https://github.com/chains-project/ddc4cd/issues/37)) ([a08065f](https://github.com/chains-project/ddc4cd/commit/a08065f83191664bcd974532eaf794a6af0ec922))
+
 ## [0.3.4](https://github.com/chains-project/ddc4cd/compare/v0.3.3...v0.3.4) (2025-05-06)
 
 
