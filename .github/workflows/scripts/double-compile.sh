@@ -20,7 +20,13 @@ Stage1_dir: ${stage1_dir}
 Stage2_dir: ${stage2_dir}
 EOF
 
-echo -e "$($initial_compiler --version | head -n 1)\n" >> ${build_dir}/compilers.txt
+if output=$($initial_compiler --version 2>/dev/null); then
+    echo "${output}" | head -n 1 >> "${build_dir}/compilers.txt"
+elif output=$($initial_compiler -v 2>/dev/null); then
+    echo "${output}" | head -n 1 >> "${build_dir}/compilers.txt"
+else
+    echo "Failed to get version for $initial_compiler" >> "${build_dir}/compilers.txt"
+fi
 
 cd $source_dir
 make clean
