@@ -20,8 +20,7 @@ Stage1_dir: ${stage1_dir}
 Stage2_dir: ${stage2_dir}
 EOF
 
-echo -e "$(basename $initial_compiler)" >> ${build_dir}/compilers.txt
-echo -e "$($initial_compiler -v 2>&1 | tr '~' '\~')\n\n" >> ${build_dir}/compilers.txt
+echo -e "$($initial_compiler --version | head -n 1)\n" >> ${build_dir}/compilers.txt
 
 cd $source_dir
 make clean
