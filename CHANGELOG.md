@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.4](https://github.com/chains-project/ddc4cd/compare/v0.3.3...v0.3.4) (2025-05-06)
+
+
+### Bug Fixes
+
+* fix broken md formatting in summary ([#35](https://github.com/chains-project/ddc4cd/issues/35)) ([219c8cd](https://github.com/chains-project/ddc4cd/commit/219c8cd95622ee7fe1db99c3430be81d4dc0e80e))
+
 ## [0.3.3](https://github.com/chains-project/ddc4cd/compare/v0.3.2...v0.3.3) (2025-05-06)
 
 
