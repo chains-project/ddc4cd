@@ -99,6 +99,15 @@ jobs:
           echo "- based on upstream: tcc@[${{ inputs.tcc-commit-hash }}](https://repo.or.cz/tinycc.git/commit/${{ inputs.tcc-commit-hash }})" >> release.md
           echo "- built using nixpkgs hash: ${{ inputs.nixpkgs-rev }}" >> release.md
           echo "- [actions run permalink](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})" >> release.md
+      - name: Fill & generate pdf
+        working-directory: ./ddc4cd/.github/workflows/scripts/release
+        run: |
+          sed -i "s|<tcc-commit>|${{ inputs.tcc-commit-hash }}|" data.typ
+          sed -i "s|<project-repo>|${{ github.repository }}|" data.typ
+          sed -i "s|<workflow-run-url>|https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|" data.typ
+          sed -i "s|<release-tag>|${{ steps.ver.outputs.CURRENT_RELEASE }}|" data.typ
+          sed -i "s|<github-actor>|${{ github.actor }}|" data.typ
+          nix-shell -p typst --run "typst compile -f pdf template.typ /tmp/certificate.pdf"
       - name: Create release
         env:
             GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
