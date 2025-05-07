@@ -101,7 +101,7 @@ jobs:
           echo "- built using nixpkgs hash: ${{ inputs.nixpkgs-rev }}" >> release.md
           echo "- [actions run permalink](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})" >> release.md
       - name: Fill & generate pdf
-        working-directory: ./ddc4cd/.github/workflows/scripts/release
+        working-directory: ddc4cd/.github/workflows/scripts/release
         run: |
           sed -i "s|<tcc-commit>|${{ inputs.tcc-commit-hash }}|" data.typ
           sed -i "s|<project-repo>|${{ github.repository }}|" data.typ
