@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.6](https://github.com/chains-project/ddc4cd/compare/v0.3.5...v0.3.6) (2025-05-07)
+
+
+### Bug Fixes
+
+* add pdf certificate to releases ([c74e8b5](https://github.com/chains-project/ddc4cd/commit/c74e8b5215fe7a8af79edec7b74bc25f338cafde))
+
 ## [0.3.5](https://github.com/chains-project/ddc4cd/compare/v0.3.4...v0.3.5) (2025-05-06)
 
 
