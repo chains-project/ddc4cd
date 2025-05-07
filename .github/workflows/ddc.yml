@@ -97,6 +97,7 @@ jobs:
       - name: Fill & generate pdf
         working-directory: ./ddc4cd/.github/workflows/scripts/release
         run: |
+          ls
           sed -i "s|<tcc-commit>|${{ inputs.tcc-commit-hash }}|" data.typ
           sed -i "s|<project-repo>|${{ github.repository }}|" data.typ
           sed -i "s|<workflow-run-url>|https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|" data.typ
