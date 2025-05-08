@@ -7,13 +7,12 @@ in
 pkgs.mkShell {
   buildInputs = with pkgs; [ 
     stdenv
-    clang
     wget
     perl
     texinfoInteractive
-    tinycc
   ];
   shellHook = ''
+    export PATH=/usr/bin:$PATH
     export STAGE1_CONF="--crtprefix=${lib.getLib pkgs.stdenv.cc.libc}/lib --sysincludepaths=${lib.getDev pkgs.stdenv.cc.libc}/include:{B}/include --libpaths={B}:${lib.getLib pkgs.stdenv.cc.libc}/lib"
     echo $STAGE1_CONF
     export STAGE2_CONF="--crtprefix=/usr/lib/x86_64-linux-gnu --sysincludepaths={B}/include:/usr/local/include/x86_64-linux-gnu:/usr/local/include:/usr/include/x86_64-linux-gnu:/usr/include --libpaths={B}:/usr/lib/x86_64-linux-gnu:/usr/lib:/lib/x86_64-linux-gnu:/lib:/usr/local/lib/x86_64-linux-gnu:/usr/local/lib"
