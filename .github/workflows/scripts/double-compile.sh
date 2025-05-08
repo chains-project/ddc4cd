@@ -39,4 +39,5 @@ make clean
 ./configure --cc="${stage1_dir}${prefix}/bin/tcc" --prefix=/usr --tccdir=/usr/lib/tcc-hardened --extra-ldflags=${extra_flags} $STAGE2_CONF
 make
 objcopy -D libtcc.a
+strip libtcc.a
 make install DESTDIR=${stage2_dir}
