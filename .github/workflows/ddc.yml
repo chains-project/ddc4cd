@@ -101,7 +101,7 @@ jobs:
           echo "- built using nixpkgs hash: ${{ inputs.nixpkgs-rev }}" >> release.md
           echo "- [actions run permalink](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})" >> release.md
       - name: Test stuff 1
-        run: ls
+        run: ls ..
       - name: Test stuff 2
         working-directory: ../ddc4cd/doc/certificate
         run: ls
