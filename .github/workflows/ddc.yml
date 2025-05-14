@@ -118,7 +118,7 @@ jobs:
           path: ddc4cd
       - name: Fill & generate pdf
         id: pdf
-        working-directory: ./doc/certificate
+        working-directory: ./ddc4cd/doc/certificate
         run: |
           sed -i "s|<tcc-commit>|${{ inputs.tcc-commit-hash }}|" data.typ
           sed -i "s|<project-repo>|${{ github.repository }}|" data.typ
