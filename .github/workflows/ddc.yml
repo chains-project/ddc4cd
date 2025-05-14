@@ -122,7 +122,7 @@ jobs:
           sed -i "s|<release-tag>|${{ steps.ver.outputs.CURRENT_RELEASE }}|" data.typ
           sed -i "s|<github-actor>|${{ github.actor }}|" data.typ
           sed -i "s|<github-attestation>|${{ steps.attest.outputs.attestation-id }}|" data.typ
-          nix-shell -p typst --run "typst compile -f pdf template.typ /tmp/certificate.pdf"
+          nix-shell -p typst --run "typst compile --font-path ./font -f pdf template.typ /tmp/certificate.pdf"
       - name: Upload pdf
         env: 
             GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
