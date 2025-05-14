@@ -113,6 +113,7 @@ jobs:
         with:
           subject-path: '/tmp/tcc-hardened_${{ steps.ver.outputs.CURRENT_RELEASE }}.deb, /tmp/tcc-hardened_${{ steps.ver.outputs.CURRENT_RELEASE }}.tar.gz'
       - name: Fill & generate pdf
+        id: pdf
         working-directory: ./ddc4cd/doc/certificate
         run: |
           sed -i "s|<tcc-commit>|${{ inputs.tcc-commit-hash }}|" data.typ
