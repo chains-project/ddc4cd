@@ -103,7 +103,7 @@ jobs:
       - name: Test stuff 1
         run: ls
       - name: Test stuff 2
-        working-directory: ./ddc4cd/doc/certificate
+        working-directory: ../ddc4cd/doc/certificate
         run: ls
       - name: Create release
         env:
