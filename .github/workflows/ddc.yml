@@ -112,6 +112,10 @@ jobs:
         uses: actions/attest-build-provenance@c074443f1aee8d4aeeae555aebba3282517141b2 # v2.2.3
         with:
           subject-path: '/tmp/tcc-hardened_${{ steps.ver.outputs.CURRENT_RELEASE }}.deb, /tmp/tcc-hardened_${{ steps.ver.outputs.CURRENT_RELEASE }}.tar.gz'
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          repository: chains-project/ddc4cd
+          path: ddc4cd
       - name: Fill & generate pdf
         id: pdf
         working-directory: ./ddc4cd/doc/certificate
@@ -123,6 +127,7 @@ jobs:
           sed -i "s|<github-actor>|${{ github.actor }}|" data.typ
           sed -i "s|<github-attestation>|${{ steps.attest.outputs.attestation-id }}|" data.typ
           nix-shell -p typst --run "typst compile -f pdf template.typ /tmp/certificate.pdf"
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Upload pdf
         env: 
             GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
