@@ -1,7 +1,7 @@
 #set page("a4")
 #set page(margin: (top: 1cm))
 #set text(font: "Inria Sans")
-#import "data.typ": tcc-commit, project-repo, workflow-run-url, release-tag, github-actor, github-attestation, rekor-idx
+#import "data.typ": tcc-commit, project-repo, workflow-run-url, release-tag, github-actor, github-attestation
 
 #show link: it => underline(text(fill: blue)[#it])
 
@@ -59,7 +59,6 @@
     *Compiler Commit:* #link("https://repo.or.cz/tinycc.git/commit/"+tcc-commit)[#tcc-commit.slice(0, count: 8)] \
     *Workflow Run:* #link(workflow-run-url)[#workflow-run-url.slice(19)] \
     *Attestation: * #link("https://github.com/chains-project/tcc-hardened/attestations/"+github-attestation)[#github-attestation] \
-    *Rekor entry:* #link("https://search.sigstore.dev/?logIndex="+rekor-idx)[#rekor-idx] \
     \
 
     *Description:* \

@@ -4,4 +4,3 @@
 #let release-tag = "<release-tag>"
 #let github-actor = "<github-actor>"
 #let github-attestation = "<github-attestation>"
-#let rekor-idx = "<rekor-idx>"

@@ -94,15 +94,6 @@ jobs:
       - name: Create binary tarball
         working-directory: ./ddc4cd
         run: ./.github/workflows/scripts/release/create-tar.sh -d build-artifacts/build-ubuntu-24.04/tcc-stage2 -v ${{ steps.ver.outputs.CURRENT_RELEASE }}
-      - name: Fill & generate pdf
-        working-directory: ./ddc4cd/doc/certificate
-        run: |
-          sed -i "s|<tcc-commit>|${{ inputs.tcc-commit-hash }}|" data.typ
-          sed -i "s|<project-repo>|${{ github.repository }}|" data.typ
-          sed -i "s|<workflow-run-url>|https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|" data.typ
-          sed -i "s|<release-tag>|${{ steps.ver.outputs.CURRENT_RELEASE }}|" data.typ
-          sed -i "s|<github-actor>|${{ github.actor }}|" data.typ
-          nix-shell -p typst --run "typst compile -f pdf template.typ /tmp/certificate.pdf"
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Generate release notes
         run: |
@@ -116,10 +107,23 @@ jobs:
           gh release create ${{ steps.ver.outputs.CURRENT_RELEASE }} -F release.md -t "tcc-hardened ${{ steps.ver.outputs.CURRENT_RELEASE }}"
           gh release upload ${{ steps.ver.outputs.CURRENT_RELEASE }} /tmp/tcc-hardened_${{ steps.ver.outputs.CURRENT_RELEASE }}.deb
           gh release upload ${{ steps.ver.outputs.CURRENT_RELEASE }} /tmp/tcc-hardened_${{ steps.ver.outputs.CURRENT_RELEASE }}.tar.gz
-          gh release upload ${{ steps.ver.outputs.CURRENT_RELEASE }} /tmp/certificate.pdf
       - name: Attest artifacts
+        id: attest
         uses: actions/attest-build-provenance@c074443f1aee8d4aeeae555aebba3282517141b2 # v2.2.3
         with:
           subject-path: '/tmp/tcc-hardened_${{ steps.ver.outputs.CURRENT_RELEASE }}.deb, /tmp/tcc-hardened_${{ steps.ver.outputs.CURRENT_RELEASE }}.tar.gz'
-
+      - name: Fill & generate pdf
+        working-directory: ./ddc4cd/doc/certificate
+        run: |
+          sed -i "s|<tcc-commit>|${{ inputs.tcc-commit-hash }}|" data.typ
+          sed -i "s|<project-repo>|${{ github.repository }}|" data.typ
+          sed -i "s|<workflow-run-url>|https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|" data.typ
+          sed -i "s|<release-tag>|${{ steps.ver.outputs.CURRENT_RELEASE }}|" data.typ
+          sed -i "s|<github-actor>|${{ github.actor }}|" data.typ
+          sed -i "s|<github-attestation>|${{ steps.attest.outputs.attestation-id }}|" data.typ
+          nix-shell -p typst --run "typst compile -f pdf template.typ /tmp/certificate.pdf"
+      - name: Upload pdf
+        env: 
+            GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload ${{ steps.ver.outputs.CURRENT_RELEASE }} /tmp/certificate.pdf
 
