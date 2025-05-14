@@ -126,7 +126,7 @@ jobs:
           sed -i "s|<release-tag>|${{ steps.ver.outputs.CURRENT_RELEASE }}|" data.typ
           sed -i "s|<github-actor>|${{ github.actor }}|" data.typ
           sed -i "s|<github-attestation>|${{ steps.attest.outputs.attestation-id }}|" data.typ
-          nix-shell -p typst --run "typst compile -f pdf template.typ /tmp/certificate.pdf"
+          nix-shell -p typst --run "typst compile --font-path ./font -f pdf template.typ /tmp/certificate.pdf"
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Upload pdf
         env: 
