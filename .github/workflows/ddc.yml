@@ -95,7 +95,7 @@ jobs:
         working-directory: ./ddc4cd
         run: ./.github/workflows/scripts/release/create-tar.sh -d build-artifacts/build-ubuntu-24.04/tcc-stage2 -v ${{ steps.ver.outputs.CURRENT_RELEASE }}
       - name: Fill & generate pdf
-        working-directory: ./ddc4cd/.github/workflows/scripts/release
+        working-directory: ./ddc4cd/doc/certificate
         run: |
           sed -i "s|<tcc-commit>|${{ inputs.tcc-commit-hash }}|" data.typ
           sed -i "s|<project-repo>|${{ github.repository }}|" data.typ
