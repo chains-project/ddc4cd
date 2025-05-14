@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.8](https://github.com/chains-project/ddc4cd/compare/v0.3.7...v0.3.8) (2025-05-14)
+
+
+### Bug Fixes
+
+* checkout correct repo for pdf generation ([c1e25ca](https://github.com/chains-project/ddc4cd/commit/c1e25cacea07df8b11f690dcf1b5327c133e3158))
+
 ## [0.3.7](https://github.com/chains-project/ddc4cd/compare/v0.3.6...v0.3.7) (2025-05-14)
 
 
