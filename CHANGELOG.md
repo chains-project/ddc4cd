@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.7](https://github.com/chains-project/ddc4cd/compare/v0.3.6...v0.3.7) (2025-05-14)
+
+
+### Bug Fixes
+
+* doc id ([#44](https://github.com/chains-project/ddc4cd/issues/44)) ([0482175](https://github.com/chains-project/ddc4cd/commit/0482175e695ed9aaf48d8516fa07c2a1fbd8e77d))
+
 ## [0.3.6](https://github.com/chains-project/ddc4cd/compare/v0.3.5...v0.3.6) (2025-05-07)
 
 
