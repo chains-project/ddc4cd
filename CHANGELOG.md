@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.9](https://github.com/chains-project/ddc4cd/compare/v0.3.8...v0.3.9) (2025-05-15)
+
+
+### Bug Fixes
+
+* Add font support ([#49](https://github.com/chains-project/ddc4cd/issues/49)) ([b4642b5](https://github.com/chains-project/ddc4cd/commit/b4642b59bd733b4a53dee930ce5a5855feff20e0))
+
 ## [0.3.8](https://github.com/chains-project/ddc4cd/compare/v0.3.7...v0.3.8) (2025-05-14)
 
 
