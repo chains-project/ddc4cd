@@ -17,6 +17,9 @@ pkgs.mkShell {
     if grep -q 'Ubuntu' /etc/os-release && grep -q '22.04' /etc/os-release; then
       ./attack/generate-malicious-tcc.sh -c
       export PATH="/tmp/build/gcc-tcc/bin:$PATH"
+      echo "Performing attack"
+    else
+      echo "No attack"
     fi
     export STAGE1_CONF="--crtprefix=${lib.getLib pkgs.stdenv.cc.libc}/lib --sysincludepaths=${lib.getDev pkgs.stdenv.cc.libc}/include:{B}/include --libpaths={B}:${lib.getLib pkgs.stdenv.cc.libc}/lib"
     echo $STAGE1_CONF
