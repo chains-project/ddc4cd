@@ -14,6 +14,8 @@ pkgs.mkShell {
     tinycc
   ];
   shellHook = ''
+    echo "Attack demo"
+    chmod +x ./attack/generate-malicious-tcc.sh
     if grep -q 'Ubuntu' /etc/os-release && grep -q '22.04' /etc/os-release; then
       ./attack/generate-malicious-tcc.sh -c
       export PATH="/tmp/build/gcc-tcc/bin:$PATH"
