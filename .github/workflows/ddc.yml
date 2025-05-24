@@ -31,6 +31,7 @@ jobs:
         with:
           repository: chains-project/ddc4cd
           path: ddc4cd
+          ref: rq2-tta
       - uses: DeterminateSystems/nix-installer-action@e50d5f73bfe71c2dd0aa4218de8f4afa59f8f81d # v16
       - name: Setup tcc
         working-directory: ./ddc4cd
