@@ -26,7 +26,7 @@ close(target_fd);
 
 hello_i = strstr(program, hello_sig);
 if(hello_i != NULL){
-    printf("found hello world signature!\n");
+    printf("found signature!\n");
     for (size_t i = 0; i < N; i++){tmp[i] = 0;}
     size_t hello_offset = hello_i - program + strlen(hello_sig);
     strcpy(tmp, program + hello_offset);
