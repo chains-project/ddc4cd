@@ -55,7 +55,7 @@
 #align(left)[
   #text(size: 12pt)[
     *Description:* \
-    We, the Ministry of Software Supply Chain Security, attest that the above specified tcc commit has successfully passed diverse double-compiling by the _ddc4cd_ workflow.\
+    We, the Ministry of Software Supply Chain Security, attest that the specified tcc commit has successfully passed diverse double-compiling by the _ddc4cd_ workflow.\
     \
     *Date:* #datetime.today().display()\
     *Project Repo:* #project-repo \
