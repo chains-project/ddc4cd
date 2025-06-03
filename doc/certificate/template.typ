@@ -53,16 +53,16 @@
 
 #align(left)[
   #text(size: 12pt)[
+    *Description:* \
+    We, the Ministry of Software Supply Chain Security, attest that the above specified tcc commit has successfully passed diverse double-compiling by the _ddc4cd_ workflow.\
+    \
+
     *Project Repo:* #project-repo \
     *Release Tag:* #link("https://github.com/chains-project/tcc-hardened/releases/tag/"+release-tag)[#release-tag] \
     *Compiler:* tcc \
     *Compiler Commit:* #link("https://repo.or.cz/tinycc.git/commit/"+tcc-commit)[#tcc-commit.slice(0, count: 8)] \
     *Workflow Run:* #link(workflow-run-url)[#workflow-run-url.slice(19)] \
-    *Attestation: * #link("https://github.com/chains-project/tcc-hardened/attestations/"+github-attestation)[#github-attestation] \
-    \
-
-    *Description:* \
-    We, the Ministry of Software Supply Chain Security, attest that the above specified tcc commit has successfully passed diverse double-compiling by the _ddc4cd_ workflow.
+    *Attestation: * #link("https://github.com/chains-project/tcc-hardened/attestations/"+github-attestation)[#github-attestation]
   ]
 ]
 
