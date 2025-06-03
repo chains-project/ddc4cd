@@ -1,5 +1,6 @@
 #set page("a4")
 #set page(margin: (top: 1cm))
+#set page(margin: (bottom: 0cm))
 #set text(font: "Inria Sans")
 #import "data.typ": tcc-commit, project-repo, workflow-run-url, release-tag, github-actor, github-attestation
 
@@ -71,9 +72,27 @@
 #stamp
 
 #v(4cm)
+#grid(
+  columns: (1fr, 1fr),
+  // left col
+  [
+    #align(left)[
+      #text(size: 16pt)[
+    //Signature: 
 
-#align(right)[
-  #text(size: 11pt)[
+    #[#stack(
+      image("signature.png"),
+      move(
+        dy: -87pt,
+        line(length: 100%, stroke: 0.5pt)
+      )
+    )]  
+  ]]
+  ],
+  // right col
+  [#align(right)[
+    #text(size: 11pt)[ \ \ \ \ \ \ \ \ \
     Approved by: #link("https://github.com/"+github-actor)[#github-actor]
-  ]
-]
+    ]
+  ]]
+)
