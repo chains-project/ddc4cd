@@ -56,7 +56,7 @@
     *Description:* \
     We, the Ministry of Software Supply Chain Security, attest that the above specified tcc commit has successfully passed diverse double-compiling by the _ddc4cd_ workflow.\
     \
-
+    *Date:* #datetime.today().display()\
     *Project Repo:* #project-repo \
     *Release Tag:* #link("https://github.com/chains-project/tcc-hardened/releases/tag/"+release-tag)[#release-tag] \
     *Compiler:* tcc \
