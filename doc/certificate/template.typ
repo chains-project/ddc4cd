@@ -1,5 +1,6 @@
 #set page("a4")
 #set page(margin: (top: 1cm))
+#set page(margin: (bottom: 0cm))
 #set text(font: "Inria Sans")
 #import "data.typ": tcc-commit, project-repo, workflow-run-url, release-tag, github-actor, github-attestation
 
@@ -53,16 +54,16 @@
 
 #align(left)[
   #text(size: 12pt)[
+    *Description:* \
+    We, the Ministry of Software Supply Chain Security, attest that the specified tcc commit has successfully passed diverse double-compiling by the _ddc4cd_ workflow.\
+    \
+    *Date:* #datetime.today().display()\
     *Project Repo:* #project-repo \
     *Release Tag:* #link("https://github.com/chains-project/tcc-hardened/releases/tag/"+release-tag)[#release-tag] \
     *Compiler:* tcc \
     *Compiler Commit:* #link("https://repo.or.cz/tinycc.git/commit/"+tcc-commit)[#tcc-commit.slice(0, count: 8)] \
     *Workflow Run:* #link(workflow-run-url)[#workflow-run-url.slice(19)] \
-    *Attestation: * #link("https://github.com/chains-project/tcc-hardened/attestations/"+github-attestation)[#github-attestation] \
-    \
-
-    *Description:* \
-    We, the Ministry of Software Supply Chain Security, attest that the above specified tcc commit has successfully passed diverse double-compiling by the _ddc4cd_ workflow.
+    *Attestation: * #link("https://github.com/chains-project/tcc-hardened/attestations/"+github-attestation)[#github-attestation]
   ]
 ]
 
@@ -71,9 +72,27 @@
 #stamp
 
 #v(4cm)
+#grid(
+  columns: (1fr, 1fr),
+  // left col
+  [
+    #align(left)[
+      #text(size: 16pt)[
+    //Signature: 
 
-#align(right)[
-  #text(size: 11pt)[
+    #[#stack(
+      image("signature.png"),
+      move(
+        dy: -87pt,
+        line(length: 100%, stroke: 0.5pt)
+      )
+    )]  
+  ]]
+  ],
+  // right col
+  [#align(right)[
+    #text(size: 11pt)[ \ \ \ \ \ \ \ \ \
     Approved by: #link("https://github.com/"+github-actor)[#github-actor]
-  ]
-]
+    ]
+  ]]
+)
