@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.10](https://github.com/chains-project/ddc4cd/compare/v0.3.9...v0.3.10) (2025-06-04)
+
+
+### Bug Fixes
+
+* update certificate pdf ([0404a6c](https://github.com/chains-project/ddc4cd/commit/0404a6c9f0e87d4d6b76e449fc4d8d6e16e5ed6e))
+
 ## [0.3.9](https://github.com/chains-project/ddc4cd/compare/v0.3.8...v0.3.9) (2025-05-15)
 
 
