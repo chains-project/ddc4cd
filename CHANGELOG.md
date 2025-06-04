@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.12](https://github.com/chains-project/ddc4cd/compare/v0.3.11...v0.3.12) (2025-06-04)
+
+
+### Bug Fixes
+
+* change token usage ([821ad38](https://github.com/chains-project/ddc4cd/commit/821ad38e135ee6b0f76c9c68cc32aed2168a7991))
+
 ## [0.3.11](https://github.com/chains-project/ddc4cd/compare/v0.3.10...v0.3.11) (2025-06-04)
 
 
