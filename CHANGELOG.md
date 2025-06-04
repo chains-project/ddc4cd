@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.11](https://github.com/chains-project/ddc4cd/compare/v0.3.10...v0.3.11) (2025-06-04)
+
+
+### Bug Fixes
+
+* add gh token to nix to prevent rate limit ([#53](https://github.com/chains-project/ddc4cd/issues/53)) ([ff99f39](https://github.com/chains-project/ddc4cd/commit/ff99f3917be727d2df71af6492583a5ab00a8bc5))
+
 ## [0.3.10](https://github.com/chains-project/ddc4cd/compare/v0.3.9...v0.3.10) (2025-06-04)
 
 
