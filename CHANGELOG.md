@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.14](https://github.com/chains-project/ddc4cd/compare/v0.3.13...v0.3.14) (2025-06-05)
+
+
+### Bug Fixes
+
+* display only workflow run id to not mess up pdf formatting ([#61](https://github.com/chains-project/ddc4cd/issues/61)) ([ac6a70f](https://github.com/chains-project/ddc4cd/commit/ac6a70f351d97a5fe48422e177c4c6fba3627f01))
+
 ## [0.3.13](https://github.com/chains-project/ddc4cd/compare/v0.3.12...v0.3.13) (2025-06-05)
 
 
