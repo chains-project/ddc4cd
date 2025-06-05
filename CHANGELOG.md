@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.13](https://github.com/chains-project/ddc4cd/compare/v0.3.12...v0.3.13) (2025-06-05)
+
+
+### Bug Fixes
+
+* add GH token to nix-installer ([ab6d42d](https://github.com/chains-project/ddc4cd/commit/ab6d42d1ed7c1f09e7100752bce7977118ef18dd))
+
 ## [0.3.12](https://github.com/chains-project/ddc4cd/compare/v0.3.11...v0.3.12) (2025-06-04)
 
 
