@@ -62,7 +62,7 @@
     *Release Tag:* #link("https://github.com/chains-project/tcc-hardened/releases/tag/"+release-tag)[#release-tag] \
     *Compiler:* tcc \
     *Compiler Commit:* #link("https://repo.or.cz/tinycc.git/commit/"+tcc-commit)[#tcc-commit.slice(0, count: 8)] \
-    *Workflow Run:* #link(workflow-run-url)[#workflow-run-url.slice(19)] \
+    *Workflow Run:* #link(workflow-run-url)[#workflow-run-url.slice(-11)] \
     *Attestation: * #link("https://github.com/chains-project/tcc-hardened/attestations/"+github-attestation)[#github-attestation]
   ]
 ]
