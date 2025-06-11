@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.15](https://github.com/chains-project/ddc4cd/compare/v0.3.14...v0.3.15) (2025-06-11)
+
+
+### Bug Fixes
+
+* fix broken url ([#63](https://github.com/chains-project/ddc4cd/issues/63)) ([7b41373](https://github.com/chains-project/ddc4cd/commit/7b41373a3cd8ade429ac74eae38296dba8a68e96))
+
 ## [0.3.14](https://github.com/chains-project/ddc4cd/compare/v0.3.13...v0.3.14) (2025-06-05)
 
 
