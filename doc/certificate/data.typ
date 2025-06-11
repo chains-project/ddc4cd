@@ -1,6 +1,6 @@
 #let tcc-commit = "<tcc-commit>"
 #let project-repo = "<project-repo>"
-#let workflow-run-url = "...................<workflow-run-url>"
+#let workflow-run-url = "<workflow-run-url>"
 #let release-tag = "<release-tag>"
 #let github-actor = "<github-actor>"
 #let github-attestation = "<github-attestation>"
